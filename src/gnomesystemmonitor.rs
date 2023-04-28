@@ -1,4 +1,4 @@
-use crate::{Feature, pacman};
+use crate::{pacman, Feature};
 
 pub struct GnomeShellSystemMonitor {}
 

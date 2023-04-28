@@ -1,5 +1,4 @@
-use std::path::{Path, PathBuf};
-use ureq::get;
+use std::path::Path;
 
 use crate::{shell, zshrc, Feature};
 
@@ -46,5 +45,10 @@ impl Feature for ZshPowerLevel10k {
 }
 
 fn get_local_folder() -> String {
-    dirs::home_dir().unwrap().join("powerlevel10k").to_str().unwrap().to_string()
+    dirs::home_dir()
+        .unwrap()
+        .join("powerlevel10k")
+        .to_str()
+        .unwrap()
+        .to_string()
 }

@@ -1,10 +1,6 @@
-use std::process::Command;
-
-use crate::chaoticaur;
 use crate::Feature;
-use crate::pacman;
+
 use crate::shell;
-use crate::yay;
 
 pub struct DisableMouseAcceleration {}
 
@@ -18,7 +14,9 @@ impl Feature for DisableMouseAcceleration {
     }
 
     fn is_installed(&self) -> bool {
-        let output = shell::execute_with_output("gsettings get org.gnome.desktop.peripherals.mouse accel-profile");
+        let output = shell::execute_with_output(
+            "gsettings get org.gnome.desktop.peripherals.mouse accel-profile",
+        );
         match output {
             Some(output) => output.contains("flat"),
             None => false,

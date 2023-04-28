@@ -1,6 +1,4 @@
-use std::process::Command;
-
-use crate::{chaoticaur, Feature, pacman, yay};
+use crate::{pacman, Feature};
 
 pub struct DashToPanel {}
 

@@ -1,23 +1,19 @@
 mod bindkey;
 mod chaoticaur;
+mod gnomeappindicator;
+mod gnomedashtopanel;
+mod gnomesystemmonitor;
+mod mouseaccleration;
 mod pacman;
 mod pacmanconfig;
 mod pamac;
 mod powerlevel10k;
 mod shell;
+mod ui;
 mod zshautosuggestions;
 mod zshcompletions;
 mod zshrc;
 mod zshsyntaxhighlighting;
-mod gnomesystemmonitor;
-mod gnomedashtopanel;
-mod gnomeappindicator;
-mod yay;
-mod ui;
-mod mouseaccleration;
-
-#[cfg(test)]
-mod chaoticaur_test;
 
 pub trait Feature {
     fn install(&self) -> bool;

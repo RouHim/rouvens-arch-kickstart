@@ -1,4 +1,3 @@
-use eframe::egui::Event::Key;
 use lazy_static::lazy_static;
 
 use crate::{zshrc, Feature};

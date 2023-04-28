@@ -1,8 +1,7 @@
 use std::collections::HashMap;
-use std::iter::Map;
+
 use eframe::egui;
-use eframe::egui::Ui;
-use egui::TextureId;
+
 use crate::Feature;
 
 const TITLE: &str = "Rouvens Arch Kickstart";
@@ -25,23 +24,13 @@ pub fn show(features: Vec<Box<dyn Feature>>) -> Result<(), eframe::Error> {
 
     let initial_state = Box::<AppState>::new(AppState {
         features,
-        busy: false,
         feature_state,
     });
 
-
-    eframe::run_native(
-        TITLE,
-        options,
-        Box::new(|_cc| {
-            initial_state
-        }),
-    )
+    eframe::run_native(TITLE, options, Box::new(|_cc| initial_state))
 }
 
-
 struct AppState {
-    busy: bool,
     features: Vec<Box<dyn Feature>>,
     feature_state: HashMap<String, bool>,
 }
@@ -54,7 +43,8 @@ impl eframe::App for AppState {
 
             if ui.button("Check feature states").clicked() {
                 for feature in &mut self.features {
-                    self.feature_state.insert(feature.get_name(), feature.is_installed());
+                    self.feature_state
+                        .insert(feature.get_name(), feature.is_installed());
                 }
             };
 
@@ -75,21 +65,16 @@ impl eframe::App for AppState {
 
                         ui.separator();
 
-                        if self.busy {
-                            ui.label("Busy");
-                        } else {
-                            let install_button = ui.button(button_text);
-                            if install_button.clicked() {
-                                self.busy = true;
-                                if *self.feature_state.get(&name).unwrap() {
-                                    feature.uninstall();
-                                } else {
-                                    feature.install();
-                                }
-                                self.feature_state.insert(feature.get_name(), feature.is_installed());
-                                self.busy = false;
-                            };
-                        }
+                        let install_button = ui.button(button_text);
+                        if install_button.clicked() {
+                            if *self.feature_state.get(&name).unwrap() {
+                                feature.uninstall();
+                            } else {
+                                feature.install();
+                            }
+                            self.feature_state
+                                .insert(feature.get_name(), feature.is_installed());
+                        };
                     });
                 });
             }

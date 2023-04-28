@@ -1,5 +1,3 @@
-use std::io::BufRead;
-
 const PACMAN_CONF: &str = "/etc/pacman.conf";
 const CUSTOM_CONFIG: &str = "# CUSTOM CONFIG";
 
