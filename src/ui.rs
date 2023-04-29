@@ -39,12 +39,9 @@ impl eframe::App for AppState {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading(TITLE);
-            ui.separator();
-
             if ui.button("Check feature states").clicked() {
                 for feature in &mut self.features {
-                    self.feature_state
-                        .insert(feature.get_name(), feature.is_installed());
+                    self.feature_state.insert(feature.get_name(), feature.is_installed());
                 }
             };
 
@@ -52,12 +49,7 @@ impl eframe::App for AppState {
 
             for feature in &mut self.features {
                 let name = feature.get_name();
-
-                let button_text = if *self.feature_state.get(&name).unwrap() {
-                    "Uninstall"
-                } else {
-                    "Install"
-                };
+                let is_installed = *self.feature_state.get(&name).unwrap();
 
                 ui.group(|ui| {
                     ui.horizontal(|ui| {
@@ -65,15 +57,20 @@ impl eframe::App for AppState {
 
                         ui.separator();
 
-                        let install_button = ui.button(button_text);
+                        let install_button = ui.button(if is_installed { "Uninstall" } else { "Install" });
                         if install_button.clicked() {
-                            if *self.feature_state.get(&name).unwrap() {
+                            // Install or uninstall
+                            if is_installed {
                                 feature.uninstall();
                             } else {
                                 feature.install();
                             }
-                            self.feature_state
-                                .insert(feature.get_name(), feature.is_installed());
+
+                            // Update state
+                            self.feature_state.insert(
+                                feature.get_name(),
+                                feature.is_installed(),
+                            );
                         };
                     });
                 });

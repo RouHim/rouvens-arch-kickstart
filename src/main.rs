@@ -1,19 +1,22 @@
-mod bindkey;
-mod chaoticaur;
-mod gnomeappindicator;
-mod gnomedashtopanel;
-mod gnomesystemmonitor;
-mod mouseaccleration;
+mod zsh_keybindings;
+mod bluetooth;
+mod chaotic_aur;
+mod gnome_app_indicator;
+mod gnome_dash_to_panel;
+mod gnome_system_monitor;
+mod mouse_accleration;
 mod pacman;
-mod pacmanconfig;
+mod pacman_config;
 mod pamac;
-mod powerlevel10k;
+mod zsh_powerlevel10k;
 mod shell;
+mod terminator;
 mod ui;
-mod zshautosuggestions;
-mod zshcompletions;
+mod zsh_autosuggestions;
+mod zsh_completions;
 mod zshrc;
-mod zshsyntaxhighlighting;
+mod zsh_syntaxhighlighting;
+mod docker;
 
 pub trait Feature {
     fn install(&self) -> bool;
@@ -24,15 +27,20 @@ pub trait Feature {
 
 fn main() {
     let features: Vec<Box<dyn Feature>> = vec![
-        Box::new(zshcompletions::ZshCompletions {}),
-        Box::new(zshsyntaxhighlighting::ZshSyntaxHighlighting {}),
-        Box::new(zshautosuggestions::ZshAutoSuggestions {}),
-        Box::new(powerlevel10k::ZshPowerLevel10k {}),
-        Box::new(bindkey::ZshBindKeys {}),
-        Box::new(gnomesystemmonitor::GnomeShellSystemMonitor {}),
-        Box::new(gnomedashtopanel::DashToPanel {}),
-        Box::new(gnomeappindicator::GnomeShellExtensionAppIndicator {}),
-        Box::new(mouseaccleration::DisableMouseAcceleration {}),
+        Box::new(zsh_completions::ZshCompletions {}),
+        Box::new(zsh_syntaxhighlighting::ZshSyntaxHighlighting {}),
+        Box::new(zsh_autosuggestions::ZshAutoSuggestions {}),
+        Box::new(zsh_powerlevel10k::ZshPowerLevel10k {}),
+        Box::new(zsh_keybindings::ZshCommonKeyBindings {}),
+        Box::new(gnome_system_monitor::GnomeShellSystemMonitor {}),
+        Box::new(gnome_dash_to_panel::DashToPanel {}),
+        Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
+        Box::new(mouse_accleration::DisableMouseAcceleration {}),
+        Box::new(pamac::Pamac {}),
+        Box::new(chaotic_aur::ChaoticAur {}),
+        Box::new(bluetooth::Bluetooth {}),
+        Box::new(terminator::Terminator {}),
+        Box::new(docker::Docker {}),
     ];
 
     ui::show(features).expect("Failed to run ui");

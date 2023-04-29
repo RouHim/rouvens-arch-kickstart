@@ -1,8 +1,8 @@
 use lazy_static::lazy_static;
 
-use crate::{zshrc, Feature};
+use crate::{Feature, zshrc};
 
-pub struct ZshBindKeys {}
+pub struct ZshCommonKeyBindings {}
 
 lazy_static! {
     static ref KEY_BINDS: Vec<String> = vec![
@@ -17,7 +17,7 @@ lazy_static! {
     ];
 }
 
-impl Feature for ZshBindKeys {
+impl Feature for ZshCommonKeyBindings {
     fn install(&self) -> bool {
         zshrc::add_line("\n");
         zshrc::add_line("# Common Zsh Key Bindings");
@@ -43,6 +43,6 @@ impl Feature for ZshBindKeys {
     }
 
     fn get_name(&self) -> String {
-        "Common Zsh Bind Keys".to_string()
+        "Common Zsh Keybindings".to_string()
     }
 }
