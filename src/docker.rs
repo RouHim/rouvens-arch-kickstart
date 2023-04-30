@@ -1,4 +1,4 @@
-use crate::{Feature, pacman, shell};
+use crate::{pacman, shell, Feature};
 
 pub struct Docker {}
 
@@ -8,6 +8,7 @@ const PACKAGE_NAME: &str = "docker";
 impl Feature for Docker {
     fn install(&self) -> bool {
         pacman::install(PACKAGE_NAME);
+        shell::execute(format!("usermod -aG docker $SUDO_USER"));
         shell::execute(format!("systemctl enable {SERVICE_NAME}"));
         shell::execute(format!("systemctl start {SERVICE_NAME}"))
     }

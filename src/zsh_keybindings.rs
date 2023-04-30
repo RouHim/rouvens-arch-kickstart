@@ -1,6 +1,6 @@
 use lazy_static::lazy_static;
 
-use crate::{Feature, zshrc};
+use crate::{zshrc, Feature};
 
 pub struct ZshCommonKeyBindings {}
 

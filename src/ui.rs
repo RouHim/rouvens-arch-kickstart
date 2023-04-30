@@ -41,7 +41,8 @@ impl eframe::App for AppState {
             ui.heading(TITLE);
             if ui.button("Check feature states").clicked() {
                 for feature in &mut self.features {
-                    self.feature_state.insert(feature.get_name(), feature.is_installed());
+                    self.feature_state
+                        .insert(feature.get_name(), feature.is_installed());
                 }
             };
 
@@ -57,7 +58,8 @@ impl eframe::App for AppState {
 
                         ui.separator();
 
-                        let install_button = ui.button(if is_installed { "Uninstall" } else { "Install" });
+                        let install_button =
+                            ui.button(if is_installed { "Uninstall" } else { "Install" });
                         if install_button.clicked() {
                             // Install or uninstall
                             if is_installed {
@@ -67,10 +69,8 @@ impl eframe::App for AppState {
                             }
 
                             // Update state
-                            self.feature_state.insert(
-                                feature.get_name(),
-                                feature.is_installed(),
-                            );
+                            self.feature_state
+                                .insert(feature.get_name(), feature.is_installed());
                         };
                     });
                 });

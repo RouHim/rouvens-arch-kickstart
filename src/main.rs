@@ -1,6 +1,8 @@
-mod zsh_keybindings;
+mod alacritty;
 mod bluetooth;
 mod chaotic_aur;
+mod docker;
+mod file;
 mod gnome_app_indicator;
 mod gnome_dash_to_panel;
 mod gnome_system_monitor;
@@ -8,15 +10,14 @@ mod mouse_accleration;
 mod pacman;
 mod pacman_config;
 mod pamac;
-mod zsh_powerlevel10k;
 mod shell;
-mod terminator;
 mod ui;
 mod zsh_autosuggestions;
 mod zsh_completions;
-mod zshrc;
+mod zsh_keybindings;
+mod zsh_powerlevel10k;
 mod zsh_syntaxhighlighting;
-mod docker;
+mod zshrc;
 
 pub trait Feature {
     fn install(&self) -> bool;
@@ -26,6 +27,13 @@ pub trait Feature {
 }
 
 fn main() {
+    // Ensure that the user is running the script as root
+    // And the home directory is not root
+    // And the user is running an arch based distro
+    ensure_root_privileges();
+    ensure_home_directory_is_not_root();
+    ensure_arch_based_distro();
+
     let features: Vec<Box<dyn Feature>> = vec![
         Box::new(zsh_completions::ZshCompletions {}),
         Box::new(zsh_syntaxhighlighting::ZshSyntaxHighlighting {}),
@@ -39,9 +47,48 @@ fn main() {
         Box::new(pamac::Pamac {}),
         Box::new(chaotic_aur::ChaoticAur {}),
         Box::new(bluetooth::Bluetooth {}),
-        Box::new(terminator::Terminator {}),
         Box::new(docker::Docker {}),
+        Box::new(alacritty::Alacritty {}),
     ];
 
     ui::show(features).expect("Failed to run ui");
+}
+
+fn ensure_arch_based_distro() {
+    if shell::execute_with_output("cat /etc/os-release | grep -i arch").is_none() {
+        println!("This app only works on arch based distros");
+        std::process::exit(1);
+    }
+
+    // Print current os name
+    println!(
+        "Running on: {}",
+        shell::execute_with_output("cat /etc/os-release | grep -i name").unwrap()
+            .replace("NAME=", "")
+    );
+}
+
+fn ensure_home_directory_is_not_root() {
+    if shell::sudo_user_home_dir().to_str().unwrap().contains("root") {
+        println!("Please run this app with sudo: 'sudo rouvens-arch-kickstart'");
+        std::process::exit(1);
+    }
+
+    // Print current user home directory
+    println!(
+        "User home dir: {}",
+        shell::sudo_user_home_dir().to_str().unwrap()
+    );
+}
+
+fn ensure_root_privileges() {
+    if !shell::is_root() {
+        println!(
+            "Please run this app with sudo: 'sudo rouvens-arch-kickstart'"
+        );
+        std::process::exit(1);
+    }
+
+    // Print current user
+    println!("Running as: {}", shell::sudo_user());
 }
