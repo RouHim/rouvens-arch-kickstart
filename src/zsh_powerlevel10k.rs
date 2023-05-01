@@ -11,7 +11,7 @@ impl Feature for ZshPowerLevel10k {
     fn install(&self) -> bool {
         let local_folder = get_local_folder();
         let clone_command = format!("git clone --depth=1 {GIT_REPO} {local_folder}");
-        let clone_ok = shell::execute(clone_command);
+        let clone_ok = shell::execute_as_user(clone_command.as_str());
 
         let zsh_ok = zshrc::add_line(ZSHRC_CONFIG_LINE);
 
@@ -33,9 +33,6 @@ impl Feature for ZshPowerLevel10k {
         let local_folder_exists = Path::new(&local_folder).exists();
         let zshrc_config_line_exists = zshrc::line_exists(ZSHRC_CONFIG_LINE);
 
-        println!("local_folder_exists: {local_folder_exists}");
-        println!("zshrc_config_line_exists: {zshrc_config_line_exists}");
-
         local_folder_exists && zshrc_config_line_exists
     }
 
@@ -45,8 +42,7 @@ impl Feature for ZshPowerLevel10k {
 }
 
 fn get_local_folder() -> String {
-    dirs::home_dir()
-        .unwrap()
+    shell::sudo_user_home_dir()
         .join("powerlevel10k")
         .to_str()
         .unwrap()

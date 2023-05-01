@@ -6,11 +6,15 @@ pub struct DisableMouseAcceleration {}
 
 impl Feature for DisableMouseAcceleration {
     fn install(&self) -> bool {
-        shell::execute_as_user("gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'")
+        shell::execute_as_user(
+            "gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'",
+        )
     }
 
     fn uninstall(&self) -> bool {
-        shell::execute_as_user("gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'default'")
+        shell::execute_as_user(
+            "gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'default'",
+        )
     }
 
     fn is_installed(&self) -> bool {

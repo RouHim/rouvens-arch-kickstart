@@ -2,11 +2,7 @@ use std::fs::OpenOptions;
 use std::io::{BufRead, BufReader, Write};
 use std::path::PathBuf;
 
-use lazy_static::lazy_static;
-
-lazy_static! {
-    static ref ZSHRC_PATH: PathBuf = dirs::home_dir().unwrap().join(".zshrc");
-}
+use crate::shell;
 
 pub fn add_line(line_to_append: &str) -> bool {
     if !line_exists(line_to_append) {
@@ -17,12 +13,15 @@ pub fn add_line(line_to_append: &str) -> bool {
 }
 
 pub fn remove_line(line_to_remove: &str) -> bool {
-    if let Ok(file) = OpenOptions::new().read(true).open(ZSHRC_PATH.as_path()) {
+    if let Ok(file) = OpenOptions::new()
+        .read(true)
+        .open(get_zshrc_file().as_path())
+    {
         let lines: Vec<String> = BufReader::new(file).lines().flatten().collect();
         let mut file = OpenOptions::new()
             .write(true)
             .truncate(true)
-            .open(ZSHRC_PATH.as_path())
+            .open(get_zshrc_file().as_path())
             .unwrap();
 
         for line in lines {
@@ -37,8 +36,15 @@ pub fn remove_line(line_to_remove: &str) -> bool {
     }
 }
 
+fn get_zshrc_file() -> PathBuf {
+    shell::sudo_user_home_dir().join(".zshrc")
+}
+
 pub fn line_exists(line_to_find: &str) -> bool {
-    if let Ok(file) = OpenOptions::new().read(true).open(ZSHRC_PATH.as_path()) {
+    if let Ok(file) = OpenOptions::new()
+        .read(true)
+        .open(get_zshrc_file().as_path())
+    {
         let reader = BufReader::new(file);
         for line in reader.lines().flatten() {
             if line.trim() == line_to_find {
@@ -54,7 +60,7 @@ fn append_to_file(line_to_append: &str) -> bool {
     if let Ok(mut file) = OpenOptions::new()
         .append(true)
         .create(true)
-        .open(ZSHRC_PATH.as_path())
+        .open(get_zshrc_file().as_path())
     {
         writeln!(file, "{}", line_to_append).expect("Failed to write to file");
         true

@@ -80,11 +80,33 @@ pub fn sudo_user() -> String {
     }
 }
 
-/// Execute a shell command as the SUDE_USER.
+/// Execute a shell command as the SUDO_USER.
 pub fn execute_as_user(to_execute: &str) -> bool {
-    execute(format!("su -c \"{to_execute}\" $SUDO_USER"))
+    println!("Executing as user: {}", to_execute);
+
+    Command::new("sh")
+        .arg("-c")
+        .arg(format!("su -c \"{to_execute}\" $SUDO_USER"))
+        .output()
+        .expect("failed to execute process")
+        .status
+        .success()
 }
 
 pub fn execute_as_user_with_output(to_exec: &str) -> Option<String> {
-    execute_with_output(format!("su -c \"{to_exec}\" $SUDO_USER"))
+    let output = Command::new("sh")
+        .arg("-c")
+        .arg(format!("su -c \"{to_exec}\" $SUDO_USER"))
+        .output()
+        .expect("failed to execute process");
+
+    if output.status.success() {
+        Some(String::from_utf8_lossy(&output.stdout).to_string())
+    } else {
+        None
+    }
+}
+
+pub fn own_file_for_sudo_user(file: &str) -> bool {
+    execute(format!("chown $SUDO_USER:$SUDO_USER {file}"))
 }

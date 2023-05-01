@@ -2,13 +2,13 @@ use crate::{pacman, shell, Feature};
 
 pub struct Docker {}
 
-const SERVICE_NAME: &str = "bluetooth.service";
+const SERVICE_NAME: &str = "docker.service";
 const PACKAGE_NAME: &str = "docker";
 
 impl Feature for Docker {
     fn install(&self) -> bool {
         pacman::install(PACKAGE_NAME);
-        shell::execute(format!("usermod -aG docker $SUDO_USER"));
+        shell::execute("usermod -aG docker $SUDO_USER");
         shell::execute(format!("systemctl enable {SERVICE_NAME}"));
         shell::execute(format!("systemctl start {SERVICE_NAME}"))
     }

@@ -1,0 +1,23 @@
+use crate::{pacman, Feature};
+
+pub struct EmojiSupport {}
+
+const PACKAGE_NAME: &str = "noto-fonts-emoji";
+
+impl Feature for EmojiSupport {
+    fn install(&self) -> bool {
+        pacman::install(PACKAGE_NAME)
+    }
+
+    fn uninstall(&self) -> bool {
+        pacman::uninstall(PACKAGE_NAME)
+    }
+
+    fn is_installed(&self) -> bool {
+        pacman::is_installed(PACKAGE_NAME)
+    }
+
+    fn get_name(&self) -> String {
+        String::from("Install Emoji Support")
+    }
+}
