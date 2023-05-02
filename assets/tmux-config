@@ -19,7 +19,7 @@ bind-key -n PageDown next-window
 
 
 # Show simple status bar
-set -g status-position down
+set -g status-position bottom
 set -g status-justify left
 set -g status-left "#[fg=white]#W"
 set -g status-right "#[fg=white]#I:#P #[fg=yellow]#H"
