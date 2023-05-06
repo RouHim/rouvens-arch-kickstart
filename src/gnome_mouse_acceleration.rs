@@ -2,9 +2,9 @@ use crate::Feature;
 
 use crate::shell;
 
-pub struct DisableMouseAcceleration {}
+pub struct GnomeDisableMouseAcceleration {}
 
-impl Feature for DisableMouseAcceleration {
+impl Feature for GnomeDisableMouseAcceleration {
     fn install(&self) -> bool {
         shell::execute_as_user(
             "gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'",

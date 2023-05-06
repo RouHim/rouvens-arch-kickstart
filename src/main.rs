@@ -5,7 +5,7 @@ mod emoji_support;
 mod gnome_app_indicator;
 mod gnome_dash_to_panel;
 mod gnome_system_monitor;
-mod mouse_acceleration;
+mod gnome_mouse_acceleration;
 mod pacman;
 mod pacman_config;
 mod pamac;
@@ -55,7 +55,7 @@ fn main() {
         Box::new(gnome_system_monitor::GnomeShellSystemMonitor {}),
         Box::new(gnome_dash_to_panel::DashToPanel {}),
         Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
-        Box::new(mouse_acceleration::DisableMouseAcceleration {}),
+        Box::new(gnome_mouse_acceleration::GnomeDisableMouseAcceleration {}),
         // Pacman
         Box::new(FeatureGroup {
             name: "Pacman".to_string(),
