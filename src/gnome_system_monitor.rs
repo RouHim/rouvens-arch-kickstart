@@ -1,8 +1,8 @@
 use crate::{pacman, Feature};
 
-pub struct GnomeShellSystemMonitor {}
+pub struct GnomeShellExtensionSystemMonitor {}
 
-impl Feature for GnomeShellSystemMonitor {
+impl Feature for GnomeShellExtensionSystemMonitor {
     fn install(&self) -> bool {
         pacman::install("libgtop networkmanager gnome-system-monitor clutter")
     }

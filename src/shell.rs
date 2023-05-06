@@ -82,13 +82,18 @@ pub fn sudo_user() -> String {
 
 /// Execute a shell command as the SUDO_USER.
 pub fn execute_as_user(to_execute: &str) -> bool {
-    println!("Executing as user: {}", to_execute);
+    println!("Executing as user: '{}'", to_execute);
 
-    Command::new("sh")
+    let output = Command::new("sh")
         .arg("-c")
         .arg(format!("su -c \"{to_execute}\" $SUDO_USER"))
         .output()
-        .expect("failed to execute process")
+        .expect("failed to execute process");
+
+    // print output to console
+    println!("{}", String::from_utf8_lossy(&output.stdout));
+
+    output
         .status
         .success()
 }

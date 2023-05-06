@@ -1,10 +1,10 @@
 use crate::{pacman, Feature};
 
-pub struct DashToPanel {}
+pub struct GnomeShellExtensionDashToPanel {}
 
 const PACKAGE_NAME: &str = "gnome-shell-extension-dash-to-panel";
 
-impl Feature for DashToPanel {
+impl Feature for GnomeShellExtensionDashToPanel {
     fn install(&self) -> bool {
         pacman::install(PACKAGE_NAME)
     }

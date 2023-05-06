@@ -28,4 +28,4 @@ need to access the user's home directory to copy configuration files.
 
 ## Additional ideas
 
-* Gnome shortcuts (windows+e -> nautilus, windows+r -> run dialog, windows+space -> switch keyboard layout, ...)
+* Fix the `sudo` requirement for yay non interactive installation

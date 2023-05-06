@@ -71,10 +71,14 @@ impl eframe::App for AppState {
                         ui.button(if is_installed { "Uninstall" } else { "Install" });
                     if install_button.clicked() {
                         // Install or uninstall
-                        if is_installed {
-                            feature.uninstall();
+                        let ok = if is_installed {
+                            feature.uninstall()
                         } else {
-                            feature.install();
+                            feature.install()
+                        };
+
+                        if !ok {
+                            ui.add(egui::Label::new("Failed to install/uninstall"));
                         }
 
                         // Update state
