@@ -38,41 +38,49 @@ struct AppState {
 impl eframe::App for AppState {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.heading(TITLE);
-            if ui.button("Check feature states").clicked() {
-                for feature in &mut self.features {
-                    self.feature_state
-                        .insert(feature.get_name(), feature.is_installed());
-                }
-            };
+            ui.horizontal(|ui| {
+                ui.heading(TITLE);
+                if ui.button("Check feature states").clicked() {
+                    for feature in &mut self.features {
+                        self.feature_state
+                            .insert(feature.get_name(), feature.is_installed());
+                    }
+                };
+            });
 
             ui.separator();
 
             for feature in &mut self.features {
                 let name = feature.get_name();
+
+                if feature.is_group_element() {
+                    ui.add_space(20.0);
+                    ui.heading(&name);
+                    ui.separator();
+                    continue;
+                }
+
                 let is_installed = *self.feature_state.get(&name).unwrap();
 
-                ui.group(|ui| {
-                    ui.horizontal(|ui| {
-                        ui.label(&name);
+                ui.horizontal(|ui| {
+                    ui.monospace(format!("{}:", name));
 
-                        ui.separator();
+                    ui.separator();
 
-                        let install_button =
-                            ui.button(if is_installed { "Uninstall" } else { "Install" });
-                        if install_button.clicked() {
-                            // Install or uninstall
-                            if is_installed {
-                                feature.uninstall();
-                            } else {
-                                feature.install();
-                            }
+                    let install_button =
+                        ui.button(if is_installed { "Uninstall" } else { "Install" });
+                    if install_button.clicked() {
+                        // Install or uninstall
+                        if is_installed {
+                            feature.uninstall();
+                        } else {
+                            feature.install();
+                        }
 
-                            // Update state
-                            self.feature_state
-                                .insert(feature.get_name(), feature.is_installed());
-                        };
-                    });
+                        // Update state
+                        self.feature_state
+                            .insert(feature.get_name(), feature.is_installed());
+                    };
                 });
             }
         });

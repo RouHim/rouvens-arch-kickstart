@@ -25,3 +25,7 @@ sudo rouvens-arch-kickstart
 
 > This is required because the script will use root privileges to install packages and configure the system, but will also
 need to access the user's home directory to copy configuration files.
+
+## Additional ideas
+
+* Gnome shortcuts (windows+e -> nautilus, windows+r -> run dialog, windows+space -> switch keyboard layout, ...)
