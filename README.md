@@ -26,6 +26,5 @@ sudo rouvens-arch-kickstart
 > This is required because the script will use root privileges to install packages and configure the system, but will also
 need to access the user's home directory to copy configuration files.
 
-## Additional ideas
-
-* Fix the `sudo` requirement for yay non interactive installation
+## TODOs
+* Fix gnome custom shortcuts for gnome

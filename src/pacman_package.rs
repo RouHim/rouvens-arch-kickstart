@@ -2,6 +2,7 @@ use crate::{pacman, Feature};
 
 pub struct PacmanPackage {
     pub package_name: &'static str,
+    pub description: &'static str,
 }
 
 impl Feature for PacmanPackage {
@@ -18,6 +19,6 @@ impl Feature for PacmanPackage {
     }
 
     fn get_name(&self) -> String {
-        format!("Install {}", self.package_name)
+        self.description.to_string()
     }
 }

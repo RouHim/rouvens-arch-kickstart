@@ -1,20 +1,16 @@
 mod bluetooth;
 mod chaotic_aur;
 mod docker;
-mod emoji_support;
 mod gnome_app_indicator;
-mod gnome_arc_menu;
 mod gnome_dash_to_panel;
 mod gnome_mouse_acceleration;
 mod gnome_shortcuts;
 mod gnome_system_monitor;
 mod pacman;
-mod pacman_config;
 mod pacman_package;
 mod shell;
 mod terminator;
 mod ui;
-mod yay;
 mod zsh_autosuggestions;
 mod zsh_completions;
 mod zsh_keybindings;
@@ -40,8 +36,6 @@ fn main() {
     ensure_home_directory_is_not_root();
     ensure_arch_based_distro();
 
-    ensure_yay();
-
     let features: Vec<Box<dyn Feature>> = vec![
         // Shell
         Box::new(FeatureGroup {
@@ -60,7 +54,6 @@ fn main() {
         Box::new(gnome_system_monitor::GnomeShellExtensionSystemMonitor {}),
         Box::new(gnome_dash_to_panel::GnomeShellExtensionDashToPanel {}),
         Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
-        Box::new(gnome_arc_menu::GnomeShellExtensionArcMenu {}),
         Box::new(gnome_mouse_acceleration::GnomeDisableMouseAcceleration {}),
         Box::new(gnome_shortcuts::GnomeKeyboardShortcuts {}),
         // Pacman
@@ -69,6 +62,7 @@ fn main() {
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "pamac",
+            description: "Install Pamac",
         }),
         Box::new(chaotic_aur::ChaoticAur {}),
         // System
@@ -77,29 +71,21 @@ fn main() {
         }),
         Box::new(bluetooth::Bluetooth {}),
         Box::new(docker::Docker {}),
-        Box::new(emoji_support::EmojiSupport {}),
         Box::new(pacman_package::PacmanPackage {
-            package_name: "tlp",
+            package_name: "noto-fonts-emoji",
+            description: "Install emoji support",
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "fwupd",
+            description: "Install firmware updater",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "topgrade",
+            description: "Install topgrade",
         }),
     ];
 
     ui::show(features).expect("Failed to run ui");
-}
-
-/// Installs yay if not installed
-fn ensure_yay() {
-    if !pacman::is_installed("yay") {
-        println!("❌ Yay is not installed. Installing...");
-        if !pacman::install("yay") {
-            println!("❌ Failed to install yay");
-            std::process::exit(1);
-        }
-    }
-
-    println!("✔️ Yay is installed");
 }
 
 fn ensure_arch_based_distro() {

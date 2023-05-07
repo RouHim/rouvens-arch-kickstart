@@ -93,9 +93,7 @@ pub fn execute_as_user(to_execute: &str) -> bool {
     // print output to console
     println!("{}", String::from_utf8_lossy(&output.stdout));
 
-    output
-        .status
-        .success()
+    output.status.success()
 }
 
 pub fn execute_as_user_with_output(to_exec: &str) -> Option<String> {

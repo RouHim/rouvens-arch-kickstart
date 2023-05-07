@@ -3,9 +3,6 @@ use crate::shell;
 pub fn install(package_name: &str) -> bool {
     shell::execute(format!("pacman -Sy --noconfirm {package_name}"))
 }
-pub fn install_needed(package_name: &str) -> bool {
-    shell::execute(format!("pacman -Sy --needed --noconfirm {package_name}"))
-}
 
 pub fn uninstall(package_name: &str) -> bool {
     shell::execute(format!("pacman -Rs --noconfirm {package_name}"))
