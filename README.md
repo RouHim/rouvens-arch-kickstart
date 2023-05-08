@@ -26,3 +26,14 @@ This application needs to be run without sudo. It will ask for sudo permissions 
 ## TODOs
 
 * Fix gnome custom shortcuts for gnome
+* Gnome single touch to click
+* zsh as default shell
+* run p10k configure
+* gnome style dark
+* edit zsh rc as user not root
+* require chaotic for dash to panel
+* fix chaotic aur- chaotic mirrorlist not foud (pacman-key --init)
+* disable mouse accl not working
+* htop, gparted, timeshift
+* enable extension when installed
+* wireless_tools wireguard mc  htop btop solaar python gparted gsmartcontrol
