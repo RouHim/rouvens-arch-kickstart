@@ -29,3 +29,4 @@ need to access the user's home directory to copy configuration files.
 ## TODOs
 * Fix gnome custom shortcuts for gnome
 * Gnome single touch to click
+* run p10k configure
