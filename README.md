@@ -32,3 +32,4 @@ need to access the user's home directory to copy configuration files.
 * zsh as default shell
 * run p10k configure
 * gnome style dark
+* edit zsh rc as user not root
