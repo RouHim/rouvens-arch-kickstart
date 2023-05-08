@@ -33,3 +33,5 @@ need to access the user's home directory to copy configuration files.
 * run p10k configure
 * gnome style dark
 * edit zsh rc as user not root
+* require chaotic for dash to panel
+* fix chaotic aur- chaotic mirrorlist not foud
