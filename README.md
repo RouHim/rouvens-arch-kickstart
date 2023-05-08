@@ -36,3 +36,4 @@ need to access the user's home directory to copy configuration files.
 * require chaotic for dash to panel
 * fix chaotic aur- chaotic mirrorlist not foud (pacman-key --init)
 * disable mouse accl not working
+* htop
