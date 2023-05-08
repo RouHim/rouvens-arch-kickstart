@@ -1,18 +1,21 @@
 use crate::{shell, Feature};
+use crate::shell::RootShell;
 
-pub struct Bluetooth {}
+pub struct Bluetooth {
+
+}
 
 const SERVICE_NAME: &str = "bluetooth.service";
 
 impl Feature for Bluetooth {
-    fn install(&self) -> bool {
-        shell::execute_as_root(format!("systemctl enable {SERVICE_NAME}"));
-        shell::execute_as_root(format!("systemctl start {SERVICE_NAME}"))
+    fn install(&self, root_shell: RootShell,) -> bool {
+        self.root_shell.execute(format!("systemctl enable {SERVICE_NAME}"));
+        self.root_shell.execute(format!("systemctl start {SERVICE_NAME}"))
     }
 
     fn uninstall(&self) -> bool {
-        shell::execute_as_root(format!("systemctl stop {SERVICE_NAME}"));
-        shell::execute_as_root(format!("systemctl disable {SERVICE_NAME}"))
+        self.root_shell.execute(format!("systemctl stop {SERVICE_NAME}"));
+        self.root_shell.execute(format!("systemctl disable {SERVICE_NAME}"))
     }
 
     fn is_installed(&self) -> bool {

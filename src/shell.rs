@@ -1,17 +1,37 @@
+use std::io::{self, Write};
 use std::path::PathBuf;
-use std::process::Command;
+use std::process::{Command, Stdio};
 
-/// Execute a shell command as root using pkexec
-pub fn execute_as_root(command: impl AsRef<str>) -> bool {
-    println!("Executing as root: pkexec {}", command.as_ref());
+pub struct RootShell {
+    child: std::process::Child,
+    stdin: std::process::ChildStdin,
+}
 
-    Command::new("sh")
-        .arg("-c")
-        .arg(format!("pkexec {}", command.as_ref()))
-        .output()
-        .expect("failed to execute process")
-        .status
-        .success()
+impl RootShell {
+    pub fn new() -> io::Result<Self> {
+        let mut child = Command::new("pkexec")
+            .arg("bash")
+            .stdin(Stdio::piped())
+            .stdout(Stdio::inherit())
+            .stderr(Stdio::inherit())
+            .spawn()?;
+
+        let stdin = child.stdin.take().unwrap();
+
+        Ok(Self { child, stdin })
+    }
+
+    pub fn execute(&mut self, command: impl AsRef<str>) {
+        writeln!(self.stdin, "{}", command.as_ref()).unwrap();
+        self.stdin.flush().unwrap();
+    }
+}
+
+impl Drop for RootShell {
+    fn drop(&mut self) {
+        let _ = self.execute("exit");
+        let _ = self.child.wait();
+    }
 }
 
 /// Execute a shell command
@@ -36,10 +56,6 @@ pub fn is_root() -> bool {
         .expect("failed to execute process");
 
     String::from_utf8_lossy(&output.stdout).to_string().trim() == "root"
-}
-
-pub fn own_file_for_user(file: &str) -> bool {
-    execute_as_root(format!("chown $SUDO_USER:$SUDO_USER {file}"))
 }
 
 pub fn execute_with_output(command: impl AsRef<str>) -> String {

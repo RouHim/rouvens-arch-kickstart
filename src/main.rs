@@ -1,3 +1,5 @@
+use crate::shell::RootShell;
+
 mod bluetooth;
 mod chaotic_aur;
 mod docker;
@@ -22,7 +24,7 @@ mod zsh_syntax_highlighting;
 mod zshrc;
 
 pub trait Feature {
-    fn install(&self) -> bool;
+    fn install(&self, root_shell: RootShell,) -> bool;
     fn uninstall(&self) -> bool;
     fn is_installed(&self) -> bool;
     fn get_name(&self) -> String;
@@ -38,6 +40,9 @@ fn main() {
     ensure_non_root_privileges();
     ensure_arch_based_distro();
 
+    // Request root shell
+    let mut root_shell = RootShell::new().unwrap();
+
     let features: Vec<Box<dyn Feature>> = vec![
         // Shell
         Box::new(FeatureGroup {
@@ -50,6 +55,7 @@ fn main() {
         Box::new(zsh_powerlevel10k::ZshPowerLevel10k {}),
         Box::new(zsh_keybindings::ZshCommonKeyBindings {}),
         Box::new(terminator::Terminator {}),
+
         // Gnome
         Box::new(FeatureGroup {
             name: "Gnome".to_string(),
@@ -61,6 +67,7 @@ fn main() {
         Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
         Box::new(gnome_mouse_acceleration::GnomeDisableMouseAcceleration {}),
         Box::new(gnome_shortcuts::GnomeKeyboardShortcuts {}),
+
         // Pacman
         Box::new(FeatureGroup {
             name: "Pacman".to_string(),
@@ -70,16 +77,18 @@ fn main() {
             description: "Install Pamac",
         }),
         Box::new(chaotic_aur::ChaoticAur {}),
+
         // System
         Box::new(FeatureGroup {
             name: "System".to_string(),
         }),
-        Box::new(bluetooth::Bluetooth {}),
+        Box::new(bluetooth::Bluetooth { root_shell: &mut root_shell }),
         Box::new(docker::Docker {}),
         Box::new(pacman_package::PacmanPackage {
             package_name: "noto-fonts-emoji",
             description: "Install emoji support",
         }),
+
         // Apps
         Box::new(FeatureGroup {
             name: "System".to_string(),
@@ -124,7 +133,7 @@ fn ensure_arch_based_distro() {
         shell::execute_with_output(
             "cat /etc/os-release | grep -i name | grep PRETTY_NAME | cut -d '=' -f 2"
         )
-        .trim()
+            .trim()
     );
 }
 
