@@ -38,3 +38,4 @@ need to access the user's home directory to copy configuration files.
 * disable mouse accl not working
 * htop, gparted, timeshift
 * enable extension when installed
+* wireless_tools wireguard mc  htop btop solaar python gparted gsmartcontrol
