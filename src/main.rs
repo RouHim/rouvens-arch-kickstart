@@ -2,10 +2,12 @@ mod bluetooth;
 mod chaotic_aur;
 mod docker;
 mod gnome_app_indicator;
+mod gnome_dark_mode;
 mod gnome_dash_to_panel;
 mod gnome_mouse_acceleration;
 mod gnome_shortcuts;
 mod gnome_system_monitor;
+mod gnome_tap_to_click;
 mod pacman;
 mod pacman_package;
 mod shell;
@@ -13,6 +15,7 @@ mod terminator;
 mod ui;
 mod zsh_autosuggestions;
 mod zsh_completions;
+mod zsh_default_shell;
 mod zsh_keybindings;
 mod zsh_powerlevel10k;
 mod zsh_syntax_highlighting;
@@ -29,11 +32,10 @@ pub trait Feature {
 }
 
 fn main() {
-    // Ensure that the user is running the script as root
+    // Ensure that the user is running the script as non root
     // And the home directory is not root
     // And the user is running an arch based distro
-    ensure_root_privileges();
-    ensure_home_directory_is_not_root();
+    ensure_non_root_privileges();
     ensure_arch_based_distro();
 
     let features: Vec<Box<dyn Feature>> = vec![
@@ -41,6 +43,7 @@ fn main() {
         Box::new(FeatureGroup {
             name: "Shell".to_string(),
         }),
+        Box::new(zsh_default_shell::ZshDefaultShell {}),
         Box::new(zsh_completions::ZshCompletions {}),
         Box::new(zsh_syntax_highlighting::ZshSyntaxHighlighting {}),
         Box::new(zsh_autosuggestions::ZshAutoSuggestions {}),
@@ -51,6 +54,8 @@ fn main() {
         Box::new(FeatureGroup {
             name: "Gnome".to_string(),
         }),
+        Box::new(gnome_dark_mode::GnomeDarkMode {}),
+        Box::new(gnome_tap_to_click::GnomeTapToClick {}),
         Box::new(gnome_system_monitor::GnomeShellExtensionSystemMonitor {}),
         Box::new(gnome_dash_to_panel::GnomeShellExtensionDashToPanel {}),
         Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
@@ -75,6 +80,10 @@ fn main() {
             package_name: "noto-fonts-emoji",
             description: "Install emoji support",
         }),
+        // Apps
+        Box::new(FeatureGroup {
+            name: "System".to_string(),
+        }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "fwupd",
             description: "Install firmware updater",
@@ -83,13 +92,28 @@ fn main() {
             package_name: "topgrade",
             description: "Install topgrade",
         }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "htop",
+            description: "Install htop",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "gparted",
+            description: "Install gparted",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "timeshift",
+            description: "Install timeshift",
+        }),
     ];
 
     ui::show(features).expect("Failed to run ui");
 }
 
 fn ensure_arch_based_distro() {
-    if shell::execute_with_output("cat /etc/os-release | grep -i arch").is_none() {
+    if shell::execute_with_output("cat /etc/os-release | grep -i arch")
+        .trim()
+        .is_empty()
+    {
         println!("❌ This app only works on arch based distros");
         std::process::exit(1);
     }
@@ -100,36 +124,21 @@ fn ensure_arch_based_distro() {
         shell::execute_with_output(
             "cat /etc/os-release | grep -i name | grep PRETTY_NAME | cut -d '=' -f 2"
         )
-        .unwrap()
         .trim()
     );
 }
 
-fn ensure_home_directory_is_not_root() {
-    if shell::sudo_user_home_dir()
-        .to_str()
-        .unwrap()
-        .contains("root")
-    {
-        println!("❌ Please run this app with sudo: 'sudo rouvens-arch-kickstart'");
-        std::process::exit(1);
-    }
-
-    // Print current user home directory
-    println!(
-        "✔️ User home dir: {}",
-        shell::sudo_user_home_dir().to_str().unwrap()
-    );
-}
-
-fn ensure_root_privileges() {
-    if !shell::is_root() {
-        println!("❌ Please run this app with sudo: 'sudo rouvens-arch-kickstart'");
+fn ensure_non_root_privileges() {
+    if shell::is_root() {
+        println!("❌ Please run this app without root privileges");
         std::process::exit(1);
     }
 
     // Print current user
-    println!("✔️ Running as root ({})", shell::sudo_user());
+    println!(
+        "✔️ Running as {}",
+        shell::execute_with_output("whoami").trim()
+    );
 }
 
 pub struct FeatureGroup {

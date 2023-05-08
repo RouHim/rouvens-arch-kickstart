@@ -1,4 +1,5 @@
-use crate::{pacman, Feature};
+use crate::{pacman, shell, Feature};
+use eframe::egui::TextBuffer;
 
 pub struct GnomeShellExtensionAppIndicator {}
 
@@ -6,7 +7,8 @@ const PACKAGE_NAME: &str = "gnome-shell-extension-appindicator";
 
 impl Feature for GnomeShellExtensionAppIndicator {
     fn install(&self) -> bool {
-        pacman::install(PACKAGE_NAME)
+        pacman::install(PACKAGE_NAME);
+        shell::execute("gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com".as_str())
     }
 
     fn uninstall(&self) -> bool {

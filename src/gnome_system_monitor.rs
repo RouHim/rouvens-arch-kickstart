@@ -1,10 +1,11 @@
-use crate::{pacman, Feature};
+use crate::{pacman, shell, Feature};
 
 pub struct GnomeShellExtensionSystemMonitor {}
 
 impl Feature for GnomeShellExtensionSystemMonitor {
     fn install(&self) -> bool {
-        pacman::install("libgtop networkmanager gnome-system-monitor clutter")
+        pacman::install("libgtop networkmanager gnome-system-monitor clutter");
+        shell::execute("gnome-extensions enable system-monitor@paradoxxx.zero.gmail.com")
     }
 
     fn uninstall(&self) -> bool {

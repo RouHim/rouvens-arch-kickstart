@@ -17,14 +17,12 @@ This is a collection of scripts and configuration files to install and configure
 
 ## Usage
 
-This application needs to be run as sudo with preserve the HOME environment variable.
+This application needs to be run without sudo. It will ask for sudo permissions when needed.
 
 ```bash
-sudo rouvens-arch-kickstart
+./rouvens-arch-kickstart
 ```
 
-> This is required because the script will use root privileges to install packages and configure the system, but will also
-need to access the user's home directory to copy configuration files.
-
 ## TODOs
+
 * Fix gnome custom shortcuts for gnome

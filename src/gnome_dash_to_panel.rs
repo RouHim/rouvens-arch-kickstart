@@ -1,4 +1,5 @@
-use crate::{pacman, Feature};
+use crate::chaotic_aur::ChaoticAur;
+use crate::{pacman, shell, Feature};
 
 pub struct GnomeShellExtensionDashToPanel {}
 
@@ -6,7 +7,9 @@ const PACKAGE_NAME: &str = "gnome-shell-extension-dash-to-panel";
 
 impl Feature for GnomeShellExtensionDashToPanel {
     fn install(&self) -> bool {
-        pacman::install(PACKAGE_NAME)
+        ChaoticAur {}.install();
+        pacman::install(PACKAGE_NAME);
+        shell::execute("gnome-extensions enable dash-to-panel@jderose9.github.com")
     }
 
     fn uninstall(&self) -> bool {

@@ -9,21 +9,21 @@ impl Feature for GnomeKeyboardShortcuts {
         let temp_file = "/tmp/gnome_shortcuts.sh";
 
         // Cleanup existing config file
-        shell::execute(format!("rm -rf {temp_file}"));
+        shell::execute_as_root(format!("rm -rf {temp_file}"));
 
         // Copy config file
         let _ = fs::write(temp_file, include_bytes!("../assets/gnome_shortcuts.sh")).is_ok();
 
         // Own config file for sudo user and make executable
-        shell::own_file_for_sudo_user(temp_file);
-        shell::execute(format!("chmod +x {temp_file}"));
+        shell::own_file_for_user(temp_file);
+        shell::execute(format!("chmod +x {temp_file}").as_mut_str());
 
         // Execute it as user
 
         // Delete temp file
         //shell::execute(format!("rm -rf {temp_file}"));
 
-        shell::execute_as_user(temp_file)
+        shell::execute(temp_file)
     }
 
     fn uninstall(&self) -> bool {

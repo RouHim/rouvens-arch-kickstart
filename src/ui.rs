@@ -50,43 +50,45 @@ impl eframe::App for AppState {
 
             ui.separator();
 
-            for feature in &mut self.features {
-                let name = feature.get_name();
+            egui::ScrollArea::vertical().show(ui, |ui| {
+                for feature in &mut self.features {
+                    let name = feature.get_name();
 
-                if feature.is_group_element() {
-                    ui.add_space(20.0);
-                    ui.heading(&name);
-                    ui.separator();
-                    continue;
-                }
+                    if feature.is_group_element() {
+                        ui.add_space(20.0);
+                        ui.heading(&name);
+                        ui.separator();
+                        continue;
+                    }
 
-                let is_installed = *self.feature_state.get(&name).unwrap();
+                    let is_installed = *self.feature_state.get(&name).unwrap();
 
-                ui.horizontal(|ui| {
-                    ui.monospace(format!("{}:", name));
+                    ui.horizontal(|ui| {
+                        ui.monospace(format!("{}:", name));
 
-                    ui.separator();
+                        ui.separator();
 
-                    let install_button =
-                        ui.button(if is_installed { "Uninstall" } else { "Install" });
-                    if install_button.clicked() {
-                        // Install or uninstall
-                        let ok = if is_installed {
-                            feature.uninstall()
-                        } else {
-                            feature.install()
+                        let install_button =
+                            ui.button(if is_installed { "Uninstall" } else { "Install" });
+                        if install_button.clicked() {
+                            // Install or uninstall
+                            let ok = if is_installed {
+                                feature.uninstall()
+                            } else {
+                                feature.install()
+                            };
+
+                            if !ok {
+                                ui.add(egui::Label::new("Failed to install/uninstall"));
+                            }
+
+                            // Update state
+                            self.feature_state
+                                .insert(feature.get_name(), feature.is_installed());
                         };
-
-                        if !ok {
-                            ui.add(egui::Label::new("Failed to install/uninstall"));
-                        }
-
-                        // Update state
-                        self.feature_state
-                            .insert(feature.get_name(), feature.is_installed());
-                    };
-                });
-            }
+                    });
+                }
+            });
         });
     }
 }

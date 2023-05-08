@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use crate::{shell, zshrc, Feature};
+use crate::{shell, zsh_default_shell, zshrc, Feature};
 
 pub struct ZshPowerLevel10k {}
 
@@ -9,9 +9,13 @@ const GIT_REPO: &str = "https://github.com/romkatv/powerlevel10k.git";
 
 impl Feature for ZshPowerLevel10k {
     fn install(&self) -> bool {
+        // Make sure ZSH shell is default
+        zsh_default_shell::ZshDefaultShell {}.install();
+
+        // Install p10k
         let local_folder = get_local_folder();
         let clone_command = format!("git clone --depth=1 {GIT_REPO} {local_folder}");
-        let clone_ok = shell::execute_as_user(clone_command.as_str());
+        let clone_ok = shell::execute(clone_command.as_str());
 
         let zsh_ok = zshrc::add_line(ZSHRC_CONFIG_LINE);
 
@@ -21,7 +25,7 @@ impl Feature for ZshPowerLevel10k {
     fn uninstall(&self) -> bool {
         let local_folder = get_local_folder();
         let remove_local_folder_command = format!("rm -rf {local_folder}");
-        let remove_local_folder_ok = shell::execute(remove_local_folder_command);
+        let remove_local_folder_ok = shell::execute_as_root(remove_local_folder_command);
 
         let remove_zshrc_line_ok = zshrc::remove_line(ZSHRC_CONFIG_LINE);
 
@@ -42,7 +46,7 @@ impl Feature for ZshPowerLevel10k {
 }
 
 fn get_local_folder() -> String {
-    shell::sudo_user_home_dir()
+    shell::user_home_dir_path()
         .join("powerlevel10k")
         .to_str()
         .unwrap()

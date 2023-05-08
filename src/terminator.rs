@@ -16,11 +16,11 @@ impl Feature for Terminator {
         pacman::install(PACKAGE_NAME);
 
         // Copy config file
-        shell::execute_as_user(format!("mkdir -p {config_dir}").as_str());
+        shell::execute(format!("mkdir -p {config_dir}").as_str());
         let _ = fs::write(&config_file, include_bytes!("../assets/terminator-config")).is_ok();
 
         // Own config file for sudo user
-        shell::own_file_for_sudo_user(config_file.as_str())
+        shell::own_file_for_user(config_file.as_str())
     }
 
     fn uninstall(&self) -> bool {
@@ -29,7 +29,7 @@ impl Feature for Terminator {
 
         // Remove config file
         let config_dir = get_config_dir();
-        shell::execute(format!("rm -rf {config_dir}"))
+        shell::execute_as_root(format!("rm -rf {config_dir}"))
     }
 
     fn is_installed(&self) -> bool {
@@ -46,7 +46,7 @@ impl Feature for Terminator {
 }
 
 fn get_config_dir() -> String {
-    shell::sudo_user_home_dir()
+    shell::user_home_dir_path()
         .join(".config")
         .join("terminator")
         .to_str()
@@ -55,7 +55,7 @@ fn get_config_dir() -> String {
 }
 
 fn get_config_file() -> String {
-    shell::sudo_user_home_dir()
+    shell::user_home_dir_path()
         .join(".config")
         .join("terminator")
         .join("config")
