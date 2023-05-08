@@ -31,3 +31,4 @@ need to access the user's home directory to copy configuration files.
 * Gnome single touch to click
 * zsh as default shell
 * run p10k configure
+* gnome style dark
