@@ -2,11 +2,12 @@ use std::collections::HashMap;
 
 use eframe::egui;
 
+use crate::shell::RootShell;
 use crate::Feature;
 
 const TITLE: &str = "Rouvens Arch Kickstart";
 
-pub fn show(features: Vec<Box<dyn Feature>>) -> Result<(), eframe::Error> {
+pub fn show(root_shell: RootShell, features: Vec<Box<dyn Feature>>) -> Result<(), eframe::Error> {
     env_logger::init();
 
     let options = eframe::NativeOptions {
@@ -25,6 +26,7 @@ pub fn show(features: Vec<Box<dyn Feature>>) -> Result<(), eframe::Error> {
     let initial_state = Box::<AppState>::new(AppState {
         features,
         feature_state,
+        root_shell,
     });
 
     eframe::run_native(TITLE, options, Box::new(|_cc| initial_state))
@@ -33,6 +35,7 @@ pub fn show(features: Vec<Box<dyn Feature>>) -> Result<(), eframe::Error> {
 struct AppState {
     features: Vec<Box<dyn Feature>>,
     feature_state: HashMap<String, bool>,
+    root_shell: RootShell,
 }
 
 impl eframe::App for AppState {
@@ -73,9 +76,9 @@ impl eframe::App for AppState {
                         if install_button.clicked() {
                             // Install or uninstall
                             let ok = if is_installed {
-                                feature.uninstall()
+                                feature.uninstall(&mut self.root_shell)
                             } else {
-                                feature.install()
+                                feature.install(&mut self.root_shell)
                             };
 
                             if !ok {

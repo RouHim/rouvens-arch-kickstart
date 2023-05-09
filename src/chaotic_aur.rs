@@ -1,5 +1,6 @@
 use std::fs;
 
+use crate::shell::RootShell;
 use crate::{shell, Feature};
 
 pub struct ChaoticAur {}
@@ -14,26 +15,25 @@ Include = /etc/pacman.d/chaotic-mirrorlist
 "#;
 
 impl Feature for ChaoticAur {
-    fn install(&self) -> bool {
-        shell::execute_as_root("pacman-key --init");
-        shell::execute_as_root(
-            "pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com",
-        );
-        shell::execute_as_root("pacman-key --lsign-key FBA220DFC880C036");
-        shell::execute_as_root("pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'");
+    fn install(&self, root_shell: &mut RootShell) -> bool {
+        shell::execute("pacman-key --init");
+        root_shell
+            .execute("pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com");
+        root_shell.execute("pacman-key --lsign-key FBA220DFC880C036");
+        root_shell.execute("pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'");
 
         if !pacman_config_contains_chaotic() {
-            append_chaotic_to_pacman_conf();
+            append_chaotic_to_pacman_conf(root_shell);
         }
 
         true
     }
 
-    fn uninstall(&self) -> bool {
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
         remove_chaotic_from_pacman_conf();
-        let response = shell::execute_as_root("pacman -Rns chaotic-keyring chaotic-mirrorlist");
-        shell::execute_as_root("rm -rf /etc/pacman.d/chaotic-mirrorlist");
-        shell::execute_as_root("pacman -Sc --noconfirm");
+        let response = root_shell.execute("pacman -Rns chaotic-keyring chaotic-mirrorlist");
+        root_shell.execute("rm -rf /etc/pacman.d/chaotic-mirrorlist");
+        root_shell.execute("pacman -Sc --noconfirm");
         response
     }
 
@@ -55,8 +55,8 @@ fn remove_chaotic_from_pacman_conf() {
     fs::write(PACMAN_CONFIG_FILE, pacman_config).unwrap();
 }
 
-fn append_chaotic_to_pacman_conf() {
-    shell::execute_as_root(format!(
+fn append_chaotic_to_pacman_conf(root_shell: &mut RootShell) {
+    root_shell.execute(format!(
         "echo '{}' >> {}",
         CHAOTIC_AUR_SECTION, PACMAN_CONFIG_FILE
     ));

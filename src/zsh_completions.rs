@@ -1,3 +1,4 @@
+use crate::shell::RootShell;
 use crate::{pacman, Feature};
 
 pub struct ZshCompletions {}
@@ -5,12 +6,12 @@ pub struct ZshCompletions {}
 const PACKAGE_NAME: &str = "zsh-completions";
 
 impl Feature for ZshCompletions {
-    fn install(&self) -> bool {
-        pacman::install(PACKAGE_NAME)
+    fn install(&self, root_shell: &mut RootShell) -> bool {
+        pacman::install(PACKAGE_NAME, root_shell)
     }
 
-    fn uninstall(&self) -> bool {
-        pacman::uninstall(PACKAGE_NAME)
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
+        pacman::uninstall(PACKAGE_NAME, root_shell)
     }
 
     fn is_installed(&self) -> bool {

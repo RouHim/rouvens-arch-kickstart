@@ -15,6 +15,7 @@ mod pacman_package;
 mod shell;
 mod terminator;
 mod ui;
+mod yay;
 mod zsh_autosuggestions;
 mod zsh_completions;
 mod zsh_default_shell;
@@ -24,8 +25,8 @@ mod zsh_syntax_highlighting;
 mod zshrc;
 
 pub trait Feature {
-    fn install(&self, root_shell: RootShell,) -> bool;
-    fn uninstall(&self) -> bool;
+    fn install(&self, root_shell: &mut RootShell) -> bool;
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool;
     fn is_installed(&self) -> bool;
     fn get_name(&self) -> String;
     fn is_group_element(&self) -> bool {
@@ -41,7 +42,9 @@ fn main() {
     ensure_arch_based_distro();
 
     // Request root shell
-    let mut root_shell = RootShell::new().unwrap();
+    let mut root_shell: RootShell = RootShell::new().unwrap();
+
+    ensure_yay_is_installed(&mut root_shell);
 
     let features: Vec<Box<dyn Feature>> = vec![
         // Shell
@@ -55,7 +58,6 @@ fn main() {
         Box::new(zsh_powerlevel10k::ZshPowerLevel10k {}),
         Box::new(zsh_keybindings::ZshCommonKeyBindings {}),
         Box::new(terminator::Terminator {}),
-
         // Gnome
         Box::new(FeatureGroup {
             name: "Gnome".to_string(),
@@ -67,7 +69,6 @@ fn main() {
         Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
         Box::new(gnome_mouse_acceleration::GnomeDisableMouseAcceleration {}),
         Box::new(gnome_shortcuts::GnomeKeyboardShortcuts {}),
-
         // Pacman
         Box::new(FeatureGroup {
             name: "Pacman".to_string(),
@@ -77,21 +78,19 @@ fn main() {
             description: "Install Pamac",
         }),
         Box::new(chaotic_aur::ChaoticAur {}),
-
         // System
         Box::new(FeatureGroup {
             name: "System".to_string(),
         }),
-        Box::new(bluetooth::Bluetooth { root_shell: &mut root_shell }),
+        Box::new(bluetooth::Bluetooth {}),
         Box::new(docker::Docker {}),
         Box::new(pacman_package::PacmanPackage {
             package_name: "noto-fonts-emoji",
             description: "Install emoji support",
         }),
-
         // Apps
         Box::new(FeatureGroup {
-            name: "System".to_string(),
+            name: "Common Packages".to_string(),
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "fwupd",
@@ -115,7 +114,16 @@ fn main() {
         }),
     ];
 
-    ui::show(features).expect("Failed to run ui");
+    ui::show(root_shell, features).expect("Failed to run ui");
+}
+
+fn ensure_yay_is_installed(root_shell: &mut RootShell) {
+    if !pacman::is_installed("yay") {
+        println!("✔️ Installing yay");
+        pacman::install("yay", root_shell);
+    } else {
+        println!("✔️ yay is already installed");
+    }
 }
 
 fn ensure_arch_based_distro() {
@@ -133,7 +141,7 @@ fn ensure_arch_based_distro() {
         shell::execute_with_output(
             "cat /etc/os-release | grep -i name | grep PRETTY_NAME | cut -d '=' -f 2"
         )
-            .trim()
+        .trim()
     );
 }
 
@@ -155,11 +163,11 @@ pub struct FeatureGroup {
 }
 
 impl Feature for FeatureGroup {
-    fn install(&self) -> bool {
+    fn install(&self, root_shell: &mut RootShell) -> bool {
         true
     }
 
-    fn uninstall(&self) -> bool {
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
         true
     }
 

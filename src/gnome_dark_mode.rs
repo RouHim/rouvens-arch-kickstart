@@ -1,14 +1,15 @@
 use crate::shell;
+use crate::shell::RootShell;
 use crate::Feature;
 
 pub struct GnomeDarkMode {}
 
 impl Feature for GnomeDarkMode {
-    fn install(&self) -> bool {
+    fn install(&self, root_shell: &mut RootShell) -> bool {
         shell::execute("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
     }
 
-    fn uninstall(&self) -> bool {
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
         shell::execute("gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'")
     }
 

@@ -30,8 +30,6 @@ pub fn remove_line(line_to_remove: &str) -> bool {
             }
         }
 
-        shell::own_file_for_user(get_zshrc_file().as_path().to_str().unwrap());
-
         true
     } else {
         false
@@ -65,7 +63,6 @@ fn append_to_file(line_to_append: &str) -> bool {
         .open(get_zshrc_file().as_path())
     {
         writeln!(file, "{}", line_to_append).expect("Failed to write to file");
-        shell::own_file_for_user(get_zshrc_file().as_path().to_str().unwrap());
         true
     } else {
         false

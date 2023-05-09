@@ -1,21 +1,21 @@
 use crate::shell;
+use crate::shell::RootShell;
 use crate::Feature;
 use std::fs;
 
 pub struct GnomeKeyboardShortcuts {}
 
 impl Feature for GnomeKeyboardShortcuts {
-    fn install(&self) -> bool {
+    fn install(&self, root_shell: &mut RootShell) -> bool {
         let temp_file = "/tmp/gnome_shortcuts.sh";
 
         // Cleanup existing config file
-        shell::execute_as_root(format!("rm -rf {temp_file}"));
+        root_shell.execute(format!("rm -rf {temp_file}"));
 
         // Copy config file
         let _ = fs::write(temp_file, include_bytes!("../assets/gnome_shortcuts.sh")).is_ok();
 
         // Own config file for sudo user and make executable
-        shell::own_file_for_user(temp_file);
         shell::execute(format!("chmod +x {temp_file}").as_mut_str());
 
         // Execute it as user
@@ -26,7 +26,7 @@ impl Feature for GnomeKeyboardShortcuts {
         shell::execute(temp_file)
     }
 
-    fn uninstall(&self) -> bool {
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
         true
     }
 

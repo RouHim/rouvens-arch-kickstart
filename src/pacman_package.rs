@@ -1,3 +1,4 @@
+use crate::shell::RootShell;
 use crate::{pacman, Feature};
 
 pub struct PacmanPackage {
@@ -6,12 +7,12 @@ pub struct PacmanPackage {
 }
 
 impl Feature for PacmanPackage {
-    fn install(&self) -> bool {
-        pacman::install(self.package_name)
+    fn install(&self, root_shell: &mut RootShell) -> bool {
+        pacman::install(self.package_name, root_shell)
     }
 
-    fn uninstall(&self) -> bool {
-        pacman::uninstall(self.package_name)
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
+        pacman::uninstall(self.package_name, root_shell)
     }
 
     fn is_installed(&self) -> bool {

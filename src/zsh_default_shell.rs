@@ -1,18 +1,19 @@
-use crate::{shell, Feature};
+use crate::shell::RootShell;
+use crate::{Feature, shell};
 
 pub struct ZshDefaultShell {}
 
 impl Feature for ZshDefaultShell {
-    fn install(&self) -> bool {
-        shell::execute_as_root("chsh -s $(which zsh)")
+    fn install(&self, root_shell: &mut RootShell) -> bool {
+        root_shell.execute("chsh -s $(which zsh)")
     }
 
-    fn uninstall(&self) -> bool {
-        shell::execute_as_root("chsh -s $(which bash)")
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
+         root_shell.execute("chsh -s $(which bash)")
     }
 
     fn is_installed(&self) -> bool {
-        shell::execute_as_root(
+        shell::execute(
             r#"if [ "$(echo $SHELL)" = "$(which zsh)" ]; then exit 0; else exit 1; fi"#,
         )
     }

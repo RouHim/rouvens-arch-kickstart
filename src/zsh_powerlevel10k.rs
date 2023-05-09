@@ -1,6 +1,7 @@
 use std::path::Path;
 
-use crate::{shell, zsh_default_shell, zshrc, Feature};
+use crate::{Feature, shell, zsh_default_shell, zshrc};
+use crate::shell::RootShell;
 
 pub struct ZshPowerLevel10k {}
 
@@ -8,9 +9,9 @@ const ZSHRC_CONFIG_LINE: &str = "source ~/powerlevel10k/powerlevel10k.zsh-theme"
 const GIT_REPO: &str = "https://github.com/romkatv/powerlevel10k.git";
 
 impl Feature for ZshPowerLevel10k {
-    fn install(&self) -> bool {
+    fn install(&self, root_shell: &mut RootShell) -> bool {
         // Make sure ZSH shell is default
-        zsh_default_shell::ZshDefaultShell {}.install();
+        zsh_default_shell::ZshDefaultShell {}.install(root_shell);
 
         // Install p10k
         let local_folder = get_local_folder();
@@ -22,10 +23,9 @@ impl Feature for ZshPowerLevel10k {
         clone_ok && zsh_ok
     }
 
-    fn uninstall(&self) -> bool {
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
         let local_folder = get_local_folder();
-        let remove_local_folder_command = format!("rm -rf {local_folder}");
-        let remove_local_folder_ok = shell::execute_as_root(remove_local_folder_command);
+        let remove_local_folder_ok = root_shell.execute(format!("rm -rf {local_folder}"));
 
         let remove_zshrc_line_ok = zshrc::remove_line(ZSHRC_CONFIG_LINE);
 

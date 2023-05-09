@@ -1,6 +1,7 @@
 use std::fs;
 use std::path::Path;
 
+use crate::shell::RootShell;
 use crate::{pacman, shell, Feature};
 
 pub struct Terminator {}
@@ -8,28 +9,25 @@ pub struct Terminator {}
 const PACKAGE_NAME: &str = "terminator";
 
 impl Feature for Terminator {
-    fn install(&self) -> bool {
+    fn install(&self, root_shell: &mut RootShell) -> bool {
         let config_dir = get_config_dir();
         let config_file = get_config_file();
 
         // Install terminator
-        pacman::install(PACKAGE_NAME);
+        pacman::install(PACKAGE_NAME, root_shell);
 
         // Copy config file
         shell::execute(format!("mkdir -p {config_dir}").as_str());
-        let _ = fs::write(&config_file, include_bytes!("../assets/terminator-config")).is_ok();
-
-        // Own config file for sudo user
-        shell::own_file_for_user(config_file.as_str())
+        fs::write(config_file, include_bytes!("../assets/terminator-config")).is_ok()
     }
 
-    fn uninstall(&self) -> bool {
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
         // Uninstall terminator
-        pacman::uninstall(PACKAGE_NAME);
+        pacman::uninstall(PACKAGE_NAME, root_shell);
 
         // Remove config file
-        let config_dir = get_config_dir();
-        shell::execute_as_root(format!("rm -rf {config_dir}"))
+        let _config_dir = get_config_dir();
+        root_shell.execute(format!("rm -rf {config_dir}"))
     }
 
     fn is_installed(&self) -> bool {

@@ -21,9 +21,9 @@ impl RootShell {
         Ok(Self { child, stdin })
     }
 
-    pub fn execute(&mut self, command: impl AsRef<str>) {
+    pub fn execute(&mut self, command: impl AsRef<str>) -> bool {
         writeln!(self.stdin, "{}", command.as_ref()).unwrap();
-        self.stdin.flush().unwrap();
+        self.stdin.flush().is_ok()
     }
 }
 

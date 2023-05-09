@@ -1,5 +1,6 @@
 use lazy_static::lazy_static;
 
+use crate::shell::RootShell;
 use crate::{zshrc, Feature};
 
 pub struct ZshCommonKeyBindings {}
@@ -18,7 +19,7 @@ lazy_static! {
 }
 
 impl Feature for ZshCommonKeyBindings {
-    fn install(&self) -> bool {
+    fn install(&self, root_shell: &mut RootShell) -> bool {
         zshrc::add_line("\n");
         zshrc::add_line("# Common Zsh Key Bindings");
         KEY_BINDS.iter().for_each(|line| {
@@ -29,7 +30,7 @@ impl Feature for ZshCommonKeyBindings {
         true
     }
 
-    fn uninstall(&self) -> bool {
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
         zshrc::remove_line("# Common Zsh Key Bindings");
         KEY_BINDS.iter().for_each(|line| {
             zshrc::remove_line(line);
