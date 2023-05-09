@@ -23,6 +23,7 @@ mod zsh_keybindings;
 mod zsh_powerlevel10k;
 mod zsh_syntax_highlighting;
 mod zshrc;
+mod gnome_arc_menu;
 
 pub trait Feature {
     fn install(&self, root_shell: &mut RootShell) -> bool;
@@ -69,6 +70,7 @@ fn main() {
         Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
         Box::new(gnome_mouse_acceleration::GnomeDisableMouseAcceleration {}),
         Box::new(gnome_shortcuts::GnomeKeyboardShortcuts {}),
+        Box::new(gnome_arc_menu::GnomeShellExtensionArcMenu {}),
         // Pacman
         Box::new(FeatureGroup {
             name: "Pacman".to_string(),
