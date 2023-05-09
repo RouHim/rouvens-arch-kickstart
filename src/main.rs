@@ -163,11 +163,11 @@ pub struct FeatureGroup {
 }
 
 impl Feature for FeatureGroup {
-    fn install(&self, root_shell: &mut RootShell) -> bool {
+    fn install(&self, _root_shell: &mut RootShell) -> bool {
         true
     }
 
-    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
+    fn uninstall(&self, _root_shell: &mut RootShell) -> bool {
         true
     }
 

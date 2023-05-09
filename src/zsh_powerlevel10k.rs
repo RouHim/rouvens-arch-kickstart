@@ -1,7 +1,7 @@
 use std::path::Path;
 
-use crate::{Feature, shell, zsh_default_shell, zshrc};
 use crate::shell::RootShell;
+use crate::{shell, zsh_default_shell, zshrc, Feature};
 
 pub struct ZshPowerLevel10k {}
 

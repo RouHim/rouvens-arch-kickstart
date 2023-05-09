@@ -5,11 +5,11 @@ use crate::Feature;
 pub struct GnomeTapToClick {}
 
 impl Feature for GnomeTapToClick {
-    fn install(&self, root_shell: &mut RootShell) -> bool {
+    fn install(&self, _root_shell: &mut RootShell) -> bool {
         shell::execute("gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true")
     }
 
-    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
+    fn uninstall(&self, _root_shell: &mut RootShell) -> bool {
         shell::execute("gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click false")
     }
 

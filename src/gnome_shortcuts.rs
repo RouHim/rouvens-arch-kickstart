@@ -26,7 +26,7 @@ impl Feature for GnomeKeyboardShortcuts {
         shell::execute(temp_file)
     }
 
-    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
+    fn uninstall(&self, _root_shell: &mut RootShell) -> bool {
         true
     }
 

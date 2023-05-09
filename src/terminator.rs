@@ -26,7 +26,7 @@ impl Feature for Terminator {
         pacman::uninstall(PACKAGE_NAME, root_shell);
 
         // Remove config file
-        let _config_dir = get_config_dir();
+        let config_dir = get_config_dir();
         root_shell.execute(format!("rm -rf {config_dir}"))
     }
 

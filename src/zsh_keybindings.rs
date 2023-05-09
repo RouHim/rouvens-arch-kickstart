@@ -19,7 +19,7 @@ lazy_static! {
 }
 
 impl Feature for ZshCommonKeyBindings {
-    fn install(&self, root_shell: &mut RootShell) -> bool {
+    fn install(&self, _root_shell: &mut RootShell) -> bool {
         zshrc::add_line("\n");
         zshrc::add_line("# Common Zsh Key Bindings");
         KEY_BINDS.iter().for_each(|line| {
@@ -30,7 +30,7 @@ impl Feature for ZshCommonKeyBindings {
         true
     }
 
-    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
+    fn uninstall(&self, _root_shell: &mut RootShell) -> bool {
         zshrc::remove_line("# Common Zsh Key Bindings");
         KEY_BINDS.iter().for_each(|line| {
             zshrc::remove_line(line);
