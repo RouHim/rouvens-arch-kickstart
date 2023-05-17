@@ -9,7 +9,8 @@ const PACKAGE_NAME: &str = "docker";
 impl Feature for Docker {
     fn install(&self, root_shell: &mut RootShell) -> bool {
         pacman::install(PACKAGE_NAME, root_shell);
-        root_shell.execute("usermod -aG docker $SUDO_USER");
+        let username = shell::get_current_user();
+        root_shell.execute(format!("usermod -aG docker {username}"));
         root_shell.execute(format!("systemctl enable {SERVICE_NAME}"));
         root_shell.execute(format!("systemctl start {SERVICE_NAME}"))
     }

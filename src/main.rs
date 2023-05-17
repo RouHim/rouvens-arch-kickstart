@@ -1,17 +1,25 @@
+use crate::chaotic_aur::ChaoticAur;
 use crate::shell::RootShell;
 
 mod bluetooth;
 mod chaotic_aur;
 mod docker;
+mod filesystem;
+mod fish_default_shell;
 mod gnome_app_indicator;
+mod gnome_arc_menu;
+mod gnome_blur_my_shell;
 mod gnome_dark_mode;
 mod gnome_dash_to_panel;
 mod gnome_mouse_acceleration;
 mod gnome_shortcuts;
 mod gnome_system_monitor;
 mod gnome_tap_to_click;
+mod kitty;
 mod pacman;
 mod pacman_package;
+mod pacman_pamac;
+mod rust;
 mod shell;
 mod terminator;
 mod ui;
@@ -23,7 +31,6 @@ mod zsh_keybindings;
 mod zsh_powerlevel10k;
 mod zsh_syntax_highlighting;
 mod zshrc;
-mod gnome_arc_menu;
 
 pub trait Feature {
     fn install(&self, root_shell: &mut RootShell) -> bool;
@@ -46,40 +53,11 @@ fn main() {
     let mut root_shell: RootShell = RootShell::new().unwrap();
 
     ensure_yay_is_installed(&mut root_shell);
+    ensure_chaotic_aur_is_installed(&mut root_shell);
 
     let features: Vec<Box<dyn Feature>> = vec![
-        // Shell
-        Box::new(FeatureGroup {
-            name: "Shell".to_string(),
-        }),
-        Box::new(zsh_default_shell::ZshDefaultShell {}),
-        Box::new(zsh_completions::ZshCompletions {}),
-        Box::new(zsh_syntax_highlighting::ZshSyntaxHighlighting {}),
-        Box::new(zsh_autosuggestions::ZshAutoSuggestions {}),
-        Box::new(zsh_powerlevel10k::ZshPowerLevel10k {}),
-        Box::new(zsh_keybindings::ZshCommonKeyBindings {}),
-        Box::new(terminator::Terminator {}),
-        // Gnome
-        Box::new(FeatureGroup {
-            name: "Gnome".to_string(),
-        }),
-        Box::new(gnome_dark_mode::GnomeDarkMode {}),
-        Box::new(gnome_tap_to_click::GnomeTapToClick {}),
-        Box::new(gnome_system_monitor::GnomeShellExtensionSystemMonitor {}),
-        Box::new(gnome_dash_to_panel::GnomeShellExtensionDashToPanel {}),
-        Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
-        Box::new(gnome_mouse_acceleration::GnomeDisableMouseAcceleration {}),
-        Box::new(gnome_shortcuts::GnomeKeyboardShortcuts {}),
-        Box::new(gnome_arc_menu::GnomeShellExtensionArcMenu {}),
         // Pacman
-        Box::new(FeatureGroup {
-            name: "Pacman".to_string(),
-        }),
-        Box::new(pacman_package::PacmanPackage {
-            package_name: "pamac",
-            description: "Install Pamac",
-        }),
-        Box::new(chaotic_aur::ChaoticAur {}),
+        Box::new(pacman_pamac::PacmanPamac {}),
         // System
         Box::new(FeatureGroup {
             name: "System".to_string(),
@@ -90,6 +68,32 @@ fn main() {
             package_name: "noto-fonts-emoji",
             description: "Install emoji support",
         }),
+        // Shell
+        Box::new(FeatureGroup {
+            name: "Shell".to_string(),
+        }),
+        Box::new(fish_default_shell::FishDefaultShell {}),
+        Box::new(zsh_default_shell::ZshDefaultShell {}),
+        Box::new(zsh_completions::ZshCompletions {}),
+        Box::new(zsh_syntax_highlighting::ZshSyntaxHighlighting {}),
+        Box::new(zsh_autosuggestions::ZshAutoSuggestions {}),
+        Box::new(zsh_powerlevel10k::ZshPowerLevel10k {}),
+        Box::new(zsh_keybindings::ZshCommonKeyBindings {}),
+        Box::new(kitty::Kitty {}),
+        Box::new(terminator::Terminator {}),
+        // Gnome
+        Box::new(FeatureGroup {
+            name: "Gnome".to_string(),
+        }),
+        Box::new(gnome_dark_mode::GnomeDarkMode {}),
+        Box::new(gnome_tap_to_click::GnomeTapToClick {}),
+        Box::new(gnome_mouse_acceleration::GnomeDisableMouseAcceleration {}),
+        Box::new(gnome_shortcuts::GnomeKeyboardShortcuts {}),
+        Box::new(gnome_system_monitor::GnomeShellExtensionSystemMonitor {}),
+        Box::new(gnome_dash_to_panel::GnomeShellExtensionDashToPanel {}),
+        Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
+        Box::new(gnome_arc_menu::GnomeShellExtensionArcMenu {}),
+        Box::new(gnome_blur_my_shell::GnomeShellExtensionBlurMyShell {}),
         // Apps
         Box::new(FeatureGroup {
             name: "Common Packages".to_string(),
@@ -107,6 +111,10 @@ fn main() {
             description: "Install htop",
         }),
         Box::new(pacman_package::PacmanPackage {
+            package_name: "btop",
+            description: "Install btop",
+        }),
+        Box::new(pacman_package::PacmanPackage {
             package_name: "gparted",
             description: "Install gparted",
         }),
@@ -114,9 +122,84 @@ fn main() {
             package_name: "timeshift",
             description: "Install timeshift",
         }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "sublime-text-4",
+            description: "Install Sublime",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "bitwarden",
+            description: "Install Bitwarden",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "mc",
+            description: "Install Midnight commander",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "solaar",
+            description: "Install Solaar (Logitech)",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "micro",
+            description: "Install Micro",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "thunderbird",
+            description: "Install Thunderbird",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "signal-desktop",
+            description: "Install Signal",
+        }),
+        // Development
+        Box::new(FeatureGroup {
+            name: "Software Development".to_string(),
+        }),
+        Box::new(rust::Rust {}),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "vscodium",
+            description: "Install VS Codium",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "python",
+            description: "Install Python",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "jdk-openjdk",
+            description: "Install OpenJDK",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "maven",
+            description: "Install Maven",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "intellij-idea-ultimate-edition intellij-idea-ultimate-edition-jre",
+            description: "Install intelliJ IDEA Ultimate",
+        }),
+        // Networking
+        Box::new(FeatureGroup {
+            name: "Networking".to_string(),
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "wireguard",
+            description: "Install Wireguard",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "wireless_tools",
+            description: "Install Wireless tools",
+        }),
     ];
 
     ui::show(root_shell, features).expect("Failed to run ui");
+}
+
+fn ensure_chaotic_aur_is_installed(root_shell: &mut RootShell) {
+    let aur = ChaoticAur {};
+    if !aur.is_installed() {
+        println!("✔️ Installing Chaotic AUR");
+        aur.install(root_shell);
+    } else {
+        println!("✔️ Chaotic AUR is already installed");
+    }
 }
 
 fn ensure_yay_is_installed(root_shell: &mut RootShell) {

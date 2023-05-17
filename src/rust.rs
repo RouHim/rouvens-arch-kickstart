@@ -1,14 +1,15 @@
 use crate::shell::RootShell;
+
 use crate::{pacman, shell, Feature};
 
-pub struct GnomeShellExtensionDashToPanel {}
+pub struct Rust {}
 
-const PACKAGE_NAME: &str = "gnome-shell-extension-dash-to-panel";
+const PACKAGE_NAME: &str = "rustup";
 
-impl Feature for GnomeShellExtensionDashToPanel {
+impl Feature for Rust {
     fn install(&self, root_shell: &mut RootShell) -> bool {
         pacman::install(PACKAGE_NAME, root_shell);
-        shell::execute("gnome-extensions enable dash-to-panel@jderose9.github.com")
+        shell::execute("rustup default stable")
     }
 
     fn uninstall(&self, root_shell: &mut RootShell) -> bool {
@@ -20,6 +21,6 @@ impl Feature for GnomeShellExtensionDashToPanel {
     }
 
     fn get_name(&self) -> String {
-        String::from("Gnome Shell Extension Dash To Panel")
+        String::from("Install Rust")
     }
 }

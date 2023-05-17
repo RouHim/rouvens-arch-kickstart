@@ -11,7 +11,10 @@ const GIT_REPO: &str = "https://github.com/romkatv/powerlevel10k.git";
 impl Feature for ZshPowerLevel10k {
     fn install(&self, root_shell: &mut RootShell) -> bool {
         // Make sure ZSH shell is default
-        zsh_default_shell::ZshDefaultShell {}.install(root_shell);
+        let zsh = zsh_default_shell::ZshDefaultShell {};
+        if !zsh.is_installed() {
+            zsh.install(root_shell);
+        }
 
         // Install p10k
         let local_folder = get_local_folder();

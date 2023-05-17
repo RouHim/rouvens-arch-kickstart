@@ -77,3 +77,8 @@ pub fn user_home_dir_path() -> PathBuf {
 
     PathBuf::from(String::from_utf8_lossy(&output.stdout).to_string().trim())
 }
+
+pub fn get_current_user() -> String {
+    let response = execute_with_output("whoami");
+    response.trim().to_string()
+}

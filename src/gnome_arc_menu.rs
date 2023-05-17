@@ -1,16 +1,16 @@
 use crate::shell::RootShell;
-use crate::{pacman, shell, Feature, yay};
+use crate::{yay, Feature};
 
 pub struct GnomeShellExtensionArcMenu {}
 
-const PACKAGE_NAME: &'static str = "gnome-shell-extension-arc-menu";
+const PACKAGE_NAME: &str = "gnome-shell-extension-arc-menu";
 
 impl Feature for GnomeShellExtensionArcMenu {
-    fn install(&self, root_shell: &mut RootShell) -> bool {
+    fn install(&self, _root_shell: &mut RootShell) -> bool {
         yay::install(PACKAGE_NAME)
     }
 
-    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
+    fn uninstall(&self, _root_shell: &mut RootShell) -> bool {
         yay::uninstall(PACKAGE_NAME)
     }
 

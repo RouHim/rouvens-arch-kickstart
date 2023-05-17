@@ -1,13 +1,13 @@
 use std::fs;
 
-use crate::Feature;
 use crate::shell;
 use crate::shell::RootShell;
+use crate::Feature;
 
 pub struct GnomeKeyboardShortcuts {}
 
 impl Feature for GnomeKeyboardShortcuts {
-    fn install(&self, root_shell: &mut RootShell) -> bool {
+    fn install(&self, _root_shell: &mut RootShell) -> bool {
         let temp_file = "/tmp/gnome_shortcuts.sh";
 
         // Cleanup existing config file

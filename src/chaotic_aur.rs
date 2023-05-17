@@ -20,7 +20,7 @@ impl Feature for ChaoticAur {
         root_shell
             .execute("pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com");
         root_shell.execute("pacman-key --lsign-key FBA220DFC880C036");
-        root_shell.execute("pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'");
+        root_shell.execute("pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm");
 
         if !pacman_config_contains_chaotic() {
             append_chaotic_to_pacman_conf(root_shell);

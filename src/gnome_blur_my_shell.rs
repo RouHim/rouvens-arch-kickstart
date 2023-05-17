@@ -1,14 +1,15 @@
 use crate::shell::RootShell;
 use crate::{pacman, shell, Feature};
+use eframe::egui::TextBuffer;
 
-pub struct GnomeShellExtensionDashToPanel {}
+pub struct GnomeShellExtensionBlurMyShell {}
 
-const PACKAGE_NAME: &str = "gnome-shell-extension-dash-to-panel";
+const PACKAGE_NAME: &str = "gnome-shell-extension-blur-my-shell";
 
-impl Feature for GnomeShellExtensionDashToPanel {
+impl Feature for GnomeShellExtensionBlurMyShell {
     fn install(&self, root_shell: &mut RootShell) -> bool {
         pacman::install(PACKAGE_NAME, root_shell);
-        shell::execute("gnome-extensions enable dash-to-panel@jderose9.github.com")
+        shell::execute("gnome-extensions enable blur-my-shell@aunetx".as_str())
     }
 
     fn uninstall(&self, root_shell: &mut RootShell) -> bool {
@@ -20,6 +21,6 @@ impl Feature for GnomeShellExtensionDashToPanel {
     }
 
     fn get_name(&self) -> String {
-        String::from("Gnome Shell Extension Dash To Panel")
+        String::from("Gnome Shell Extension Blur my Shell")
     }
 }
