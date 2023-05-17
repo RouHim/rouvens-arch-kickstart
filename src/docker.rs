@@ -1,3 +1,4 @@
+use std::thread;
 use crate::shell::RootShell;
 use crate::{pacman, shell, Feature};
 
@@ -11,13 +12,13 @@ impl Feature for Docker {
         pacman::install(PACKAGE_NAME, root_shell);
         let username = shell::get_current_user();
         root_shell.execute(format!("usermod -aG docker {username}"));
+        thread::sleep(std::time::Duration::from_millis(100));
         root_shell.execute(format!("systemctl enable {SERVICE_NAME}"));
+        thread::sleep(std::time::Duration::from_millis(100));
         root_shell.execute(format!("systemctl start {SERVICE_NAME}"))
     }
 
     fn uninstall(&self, root_shell: &mut RootShell) -> bool {
-        root_shell.execute(format!("systemctl stop {SERVICE_NAME}"));
-        root_shell.execute(format!("systemctl disable {SERVICE_NAME}"));
         pacman::uninstall(PACKAGE_NAME, root_shell)
     }
 

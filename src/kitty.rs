@@ -13,6 +13,11 @@ impl Feature for Kitty {
         // Install kitty
         let ok = pacman::install(PACKAGE_NAME, root_shell);
 
+        // Ensure kitty config directory exists
+        let kitty_config_path = get_kitty_config_file();
+        let kitty_config_dir = kitty_config_path.parent().unwrap();
+        shell::execute(format!("mkdir -p {}", kitty_config_dir.to_str().unwrap()));
+
         // Download kitty config
         filesystem::download_file(
             "https://sw.kovidgoyal.net/kitty/_downloads/433dadebd0bf504f8b008985378086ce/kitty.conf",
