@@ -7,6 +7,7 @@ edition = "2021"
 lazy_static = "1.4.0"
 eframe = "0.21.3"
 env_logger = "0.10.0"
+ureq = "2.6"
 
 [profile.release]
 panic = "abort" # Strip expensive panic clean-up logic

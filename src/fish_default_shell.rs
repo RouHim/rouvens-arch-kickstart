@@ -43,7 +43,8 @@ impl Feature for FishDefaultShell {
 
     fn is_installed(&self) -> bool {
         let username = shell::get_current_user();
-        let is_default_shell = shell::execute(format!("cat /etc/passwd | grep {username} | grep /fish"));
+        let is_default_shell =
+            shell::execute(format!("cat /etc/passwd | grep {username} | grep /fish"));
 
         let is_installed = pacman::is_installed("fish");
 

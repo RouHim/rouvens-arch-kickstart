@@ -1,7 +1,4 @@
-use std::fs::OpenOptions;
-use std::io::{Write};
-use std::path::{PathBuf};
-
+use std::path::PathBuf;
 
 use crate::shell::RootShell;
 use crate::{filesystem, pacman, shell, Feature};
@@ -15,32 +12,27 @@ impl Feature for Kitty {
         // Install kitty
         let ok = pacman::install(PACKAGE_NAME, root_shell);
 
+        // Download kitty config
+        filesystem::download_file(
+            "https://sw.kovidgoyal.net/kitty/_downloads/433dadebd0bf504f8b008985378086ce/kitty.conf",
+            get_kitty_config_file(),
+        );
+
         configure_kitty();
 
-        // Write "[Desktop Entry]" to /usr/share/applications/kitty-open.desktop and make it readonly
-        // This avoids kitty from being the default for opening files and folders
-        let mut file = OpenOptions::new()
-            .write(true)
-            .append(true)
-            .open("/usr/share/applications/kitty-open.desktop")
-            .unwrap();
-        file.write_all(b"[Desktop Entry]").unwrap();
-        let mut perms = file.metadata().unwrap().permissions();
-        perms.set_readonly(true);
-        file.set_permissions(perms).unwrap();
+        // Make kitty-open.desktop readonly
+        // This is necessary because kitty-open.desktop is overwritten by kitty
+        let file = PathBuf::from("/usr/share/applications/kitty-open.desktop");
+        filesystem::set_readonly(root_shell, &file, false);
+        filesystem::write_string_to_file(&file, "[Desktop Entry]");
+        filesystem::set_readonly(root_shell, &file, true);
 
         ok
     }
 
     fn uninstall(&self, root_shell: &mut RootShell) -> bool {
-        let file = OpenOptions::new()
-            .write(true)
-            .append(true)
-            .open("/usr/share/applications/kitty-open.desktop")
-            .unwrap();
-        let mut perms = file.metadata().unwrap().permissions();
-        perms.set_readonly(true);
-        file.set_permissions(perms).unwrap();
+        let file = PathBuf::from("/usr/share/applications/kitty-open.desktop");
+        filesystem::set_readonly(root_shell, &file, false);
 
         // Uninstall kitty
         pacman::uninstall(PACKAGE_NAME, root_shell)
