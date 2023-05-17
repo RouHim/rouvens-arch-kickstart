@@ -19,6 +19,6 @@ impl Feature for GnomeShellExtensionArcMenu {
     }
 
     fn get_name(&self) -> String {
-        String::from("Gnome System Monitor extension")
+        String::from("Gnome System ArcMenu extension")
     }
 }

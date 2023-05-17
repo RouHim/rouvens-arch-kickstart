@@ -1,4 +1,5 @@
 use std::path::PathBuf;
+use std::{thread};
 
 use crate::shell::RootShell;
 use crate::{filesystem, pacman, shell, Feature};
@@ -23,16 +24,23 @@ impl Feature for Kitty {
         // Make kitty-open.desktop readonly
         // This is necessary because kitty-open.desktop is overwritten by kitty
         let file = PathBuf::from("/usr/share/applications/kitty-open.desktop");
-        filesystem::set_readonly(root_shell, &file, false);
-        filesystem::write_string_to_file(&file, "[Desktop Entry]");
-        filesystem::set_readonly(root_shell, &file, true);
+        root_shell.execute(format!("chattr -i {}", file.to_str().unwrap()));
+        thread::sleep(std::time::Duration::from_millis(100));
+
+        // Write "[Desktop Entry]" to kitty-open.desktop
+        root_shell.execute(format!(
+            "echo \"[Desktop Entry]\" > {}",
+            file.to_str().unwrap()
+        ));
+
+        root_shell.execute(format!("chattr +i {}", file.to_str().unwrap()));
 
         ok
     }
 
     fn uninstall(&self, root_shell: &mut RootShell) -> bool {
         let file = PathBuf::from("/usr/share/applications/kitty-open.desktop");
-        filesystem::set_readonly(root_shell, &file, false);
+        root_shell.execute(format!("chattr -i {}", file.to_str().unwrap()));
 
         // Uninstall kitty
         pacman::uninstall(PACKAGE_NAME, root_shell)
