@@ -22,6 +22,3 @@ This application needs to be run without sudo. It will ask for sudo permissions 
 ```bash
 ./rouvens-arch-kickstart
 ```
-
-## TODOs
-* wireless_tools wireguard mc btop solaar python gparted
