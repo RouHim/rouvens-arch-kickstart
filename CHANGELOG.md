@@ -1,3 +1,12 @@
+## [1.0.3](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.0.2...1.0.3) (2023-05-18)
+
+
+### Bug Fixes
+
+* file upload ([5bab192](https://github.com/RouHim/rouvens-arch-kickstart/commit/5bab1927fbd1c56f9b9950c33243f304d21ff3cc))
+* file upload ([ca63fb3](https://github.com/RouHim/rouvens-arch-kickstart/commit/ca63fb38379b1bd7074c3a56b1bc9ec6b4a97d5b))
+* file upload ([f2423fb](https://github.com/RouHim/rouvens-arch-kickstart/commit/f2423fb4e0e057e3b3b3b61e5872d9d2346c677a))
+
 ## [1.0.2](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.0.1...1.0.2) (2023-05-18)
 
 
