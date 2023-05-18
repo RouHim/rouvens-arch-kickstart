@@ -27,7 +27,14 @@ alias ssh="kitty +kitten ssh"
 
 impl Feature for FishDefaultShell {
     fn install(&self, root_shell: &mut RootShell) -> bool {
-        pacman::install("fish fisher", root_shell);
+        pacman::install("fish fisher ttf-meslo-nerd", root_shell);
+
+        // Ensure fish config folder and file exists
+        let fish_config = get_fish_config();
+        if let Some(parent) = fish_config.parent() {
+            fs::create_dir_all(parent).unwrap();
+        }
+        fs::write(fish_config.as_path(), "").unwrap();
 
         append_to_fish_config(FISH_CONFIG);
 
@@ -38,7 +45,7 @@ impl Feature for FishDefaultShell {
         shell::execute(format!("pkexec chsh --shell $(which fish) {username}"));
 
         // Open default terminal and execute: tide configure
-        shell::execute("gnome-terminal -- fish -c 'tide configure'");
+        shell::execute("kgx --command \"fish -c 'tide configure'\"");
 
         is_installed("fish fisher")
     }

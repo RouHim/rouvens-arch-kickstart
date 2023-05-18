@@ -180,7 +180,7 @@ fn main() {
             name: "Networking".to_string(),
         }),
         Box::new(pacman_package::PacmanPackage {
-            package_name: "wireguard",
+            package_name: "wireguard-tools",
             description: "Install Wireguard",
         }),
         Box::new(pacman_package::PacmanPackage {
