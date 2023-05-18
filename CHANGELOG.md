@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.0.0...1.0.1) (2023-05-18)
+
+
+### Bug Fixes
+
+* remove open todos ([4fbe852](https://github.com/RouHim/rouvens-arch-kickstart/commit/4fbe852124579e25f67082f2f1e9b6d3334d1acd))
+
 # 1.0.0 (2023-05-18)
 
 
