@@ -142,6 +142,13 @@ jobs:
           name: artifact-linux-x86_64
           path: .
 
+      - name: Ensure that rak-x86-64 exists
+        run: |
+          if [ ! -f rak-x86-64 ]; then
+            echo "rak-x86-64 does not exist"
+            exit 1
+          fi
+
       # Create a new release based on semantic versioning
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -169,7 +176,7 @@ jobs:
           bash .github/scripts/upload-asset-to-release.sh \
             ${{ secrets.RELEASE_TOKEN }} \
             "rak-x86-64" \
-            "rak-x86-64"
+            "rak-x86_64"
 
       - name: Delete old releases
         uses: dev-drprasad/delete-older-releases@v0.2.1
