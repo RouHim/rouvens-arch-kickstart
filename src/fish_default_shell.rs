@@ -1,5 +1,5 @@
-use std::fs::OpenOptions;
-use std::io::{BufRead, BufReader, Write};
+use std::fs;
+
 use std::path::PathBuf;
 
 use crate::shell::RootShell;
@@ -20,6 +20,9 @@ set -x PATH /home/rouven/.local/bin $PATH
 alias ll 'ls -l'
 alias l 'ls -la'
 
+# Fix ssh issues
+alias ssh="kitty +kitten ssh"
+
 "#;
 
 impl Feature for FishDefaultShell {
@@ -33,6 +36,9 @@ impl Feature for FishDefaultShell {
 
         let username = shell::get_current_user();
         shell::execute(format!("pkexec chsh --shell $(which fish) {username}"));
+
+        // Open default terminal and execute: tide configure
+        shell::execute("gnome-terminal -- fish -c 'tide configure'");
 
         is_installed("fish fisher")
     }
@@ -66,39 +72,19 @@ fn get_fish_config() -> PathBuf {
         .join("config.fish")
 }
 
-fn append_to_fish_config(line_to_append: &str) -> bool {
-    if let Ok(mut file) = OpenOptions::new()
-        .append(true)
-        .create(true)
-        .open(get_fish_config().as_path())
-    {
-        writeln!(file, "{}", line_to_append).expect("Failed to write to file");
-        true
-    } else {
-        false
-    }
+fn append_to_fish_config(string_to_append: &str) -> bool {
+    let config_file = get_fish_config();
+    let content = fs::read_to_string(config_file.as_path()).unwrap();
+    let new_content = format!("{}\n{}", content, string_to_append);
+    fs::write(config_file.as_path(), new_content).is_ok()
 }
 
-pub fn remove_from_fish_config(line_to_remove: &str) -> bool {
-    if let Ok(file) = OpenOptions::new()
-        .read(true)
-        .open(get_fish_config().as_path())
-    {
-        let lines: Vec<String> = BufReader::new(file).lines().flatten().collect();
-        let mut file = OpenOptions::new()
-            .write(true)
-            .truncate(true)
-            .open(get_fish_config().as_path())
-            .unwrap();
-
-        for line in lines {
-            if line.trim() != line_to_remove {
-                writeln!(file, "{}", line).expect("Failed to write to file");
-            }
-        }
-
-        true
-    } else {
-        false
-    }
+pub fn remove_from_fish_config(string_to_remove: &str) -> bool {
+    let config_file = get_fish_config();
+    fs::read_to_string(config_file.as_path())
+        .map(|content| {
+            let new_content = content.replace(string_to_remove, "");
+            fs::write(config_file.as_path(), new_content)
+        })
+        .is_ok()
 }

@@ -1,6 +1,6 @@
-use std::thread;
 use crate::shell::RootShell;
 use crate::{pacman, shell, Feature};
+use std::thread;
 
 pub struct Docker {}
 

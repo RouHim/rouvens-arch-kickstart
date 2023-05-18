@@ -1,5 +1,5 @@
 use std::path::PathBuf;
-use std::{thread};
+use std::thread;
 
 use crate::shell::RootShell;
 use crate::{filesystem, pacman, shell, Feature};
@@ -86,6 +86,13 @@ fn configure_kitty() {
         &config_dir,
         "# background_opacity 1.0",
         "background_opacity 0.9",
+    );
+
+    // Set kitty config transparent background to 90%
+    filesystem::replace_string_in_file(
+        &config_dir,
+        "# wayland_titlebar_color system",
+        "wayland_titlebar_color #555555",
     );
 }
 

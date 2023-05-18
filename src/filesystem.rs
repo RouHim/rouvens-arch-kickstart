@@ -1,8 +1,6 @@
-
 use std::fs;
 
-
-use std::path::{PathBuf};
+use std::path::PathBuf;
 
 pub fn replace_string_in_file(file_path: &PathBuf, search_string: &str, new_line: &str) -> bool {
     let mut content = fs::read_to_string(file_path).unwrap();
