@@ -127,58 +127,55 @@ jobs:
           name: artifact-linux-x86_64
           path: rak-x86-64
 
-#  github-release:
-#    name: Create GitHub release
-#    runs-on: ubuntu-latest
-#    needs: [ build, build-deb-package , build-rpm-package ]
-#    if: github.ref_name == 'main' # only publish if the branch is main
-#    permissions:
-#      contents: write
-#    steps:
-#      - uses: actions/checkout@v3
-#
-#      - name: Download previous built application
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: artifact-linux-x86_64
-#          path: .
-#
-#      # Create a new release based on semantic versioning
-#      - name: Set up Node.js
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: 18.x
-#
-#      - name: Install Dependencies
-#        run: |
-#          npm install -g \
-#             semantic-release  \
-#            @semantic-release/git  \
-#            @semantic-release/gitlab  \
-#            @semantic-release/changelog  \
-#            @semantic-release/exec \
-#            @semantic-release/commit-analyzer \
-#            conventional-changelog-conventionalcommits
-#
-#      - name: Generate Semantic Release Notes and Create Release
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-#        run: npx semantic-release
-#
-#      - name: Upload plain linux-x86_64 asset
-#        uses: actions/upload-release-asset@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: ${{ github.event.release.upload_url }}
-#          asset_path: rak-x86-64
-#          asset_name: rak-x86-64
-#          asset_content_type: application/x-executable
-#
-#      - name: Delete old releases
-#        uses: dev-drprasad/delete-older-releases@v0.2.1
-#        with:
-#          keep_latest: 50
-#          delete_tags: true
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release-artifact:
+    name: Release artifacts
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Download previous built application
+        uses: actions/download-artifact@v3
+        with:
+          name: artifact-linux-x86_64
+          path: .
+
+      # Create a new release based on semantic versioning
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install Dependencies
+        run: |
+          npm install -g \
+             semantic-release  \
+            @semantic-release/git  \
+            @semantic-release/gitlab  \
+            @semantic-release/changelog  \
+            @semantic-release/exec \
+            @semantic-release/commit-analyzer \
+            conventional-changelog-conventionalcommits
+
+      - name: Generate Semantic Release Notes and Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: npx semantic-release
+
+      - name: Upload the x86 built binaries to the release
+        run: |
+          bash .github/scripts/upload-asset-to-release.sh \
+            ${{ secrets.RELEASE_TOKEN }} \
+            "rak-x86-64" \
+            "rak-x86-64"
+
+      - name: Delete old releases
+        uses: dev-drprasad/delete-older-releases@v0.2.1
+        with:
+          keep_latest: 5
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
