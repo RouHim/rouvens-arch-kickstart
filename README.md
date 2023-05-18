@@ -3,12 +3,8 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/RouHim/rouvens-arch-kickstart/actions/workflows/pipe.yml"><img src="https://github.com/RouHim/rouvens-arch-kickstart/actions/workflows/ci-cd-pipe.yml/badge.svg" alt="CI"></a>
-</p>
-
-<p align="center">
-  <a href="https://...">AUR</a>
-  | <a href="https://github.com/RouHim/rouvens-arch-kickstart/issues">Issue Tracker</a>
+    <a href="https://github.com/RouHim/rouvens-arch-kickstart/actions/workflows/pipe.yml"><img src="https://github.com/RouHim/rouvens-arch-kickstart/actions/workflows/pipe.yaml/badge.svg" alt="CI"></a> |
+  <a href="https://github.com/RouHim/rouvens-arch-kickstart/issues">Issue Tracker</a>
 </p>
 
 <p align="center">
