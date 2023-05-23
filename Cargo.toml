@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 lazy_static = "1.4.0"
-eframe = "0.21.3"
+eframe = "0.22.0"
 env_logger = "0.10.0"
 ureq = "2.6"
 
