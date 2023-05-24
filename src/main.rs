@@ -175,6 +175,10 @@ fn main() {
             package_name: "intellij-idea-ultimate-edition intellij-idea-ultimate-edition-jre",
             description: "Install intelliJ IDEA Ultimate",
         }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "qemu-user-static",
+            description: "Install QEMU static",
+        }),
         // Networking
         Box::new(FeatureGroup {
             name: "Networking".to_string(),
