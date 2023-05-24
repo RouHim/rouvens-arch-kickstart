@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.1.0...1.2.0) (2023-05-24)
+
+
+### Features
+
+* **packages:** add gnome browser connector ([9169bc8](https://github.com/RouHim/rouvens-arch-kickstart/commit/9169bc8e612d334bf57ffc5dce62d5b3b7f2ee04))
+
 # [1.1.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.0.4...1.1.0) (2023-05-24)
 
 
