@@ -89,6 +89,10 @@ fn main() {
         Box::new(gnome_tap_to_click::GnomeTapToClick {}),
         Box::new(gnome_mouse_acceleration::GnomeDisableMouseAcceleration {}),
         Box::new(gnome_shortcuts::GnomeKeyboardShortcuts {}),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "gnome-browser-connector",
+            description: "Install Gnome Browser connector",
+        }),
         Box::new(gnome_system_monitor::GnomeShellExtensionSystemMonitor {}),
         Box::new(gnome_dash_to_panel::GnomeShellExtensionDashToPanel {}),
         Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
