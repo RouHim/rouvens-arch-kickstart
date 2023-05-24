@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.0.4...1.1.0) (2023-05-24)
+
+
+### Features
+
+* **packages:** add QEMU static to software development ([c583003](https://github.com/RouHim/rouvens-arch-kickstart/commit/c583003f09ed4c861b801161161854d4cbdfc306))
+
 ## [1.0.4](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.0.3...1.0.4) (2023-05-24)
 
 ## [1.0.3](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.0.2...1.0.3) (2023-05-18)
