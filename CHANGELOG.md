@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.2.0...1.3.0) (2023-05-29)
+
+
+### Features
+
+* **packages:** add more packages and remove zsh ([7ca73a4](https://github.com/RouHim/rouvens-arch-kickstart/commit/7ca73a41c94e3796479562b1a595f48ce70718bb))
+
 # [1.2.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.1.0...1.2.0) (2023-05-24)
 
 
