@@ -146,6 +146,10 @@ fn main() {
             package_name: "signal-desktop",
             description: "Install Signal",
         }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "usbimager",
+            description: "Install USB Imager",
+        }),
         // Development
         Box::new(FeatureGroup {
             name: "Software Development".to_string(),
@@ -186,6 +190,38 @@ fn main() {
         Box::new(pacman_package::PacmanPackage {
             package_name: "wireless_tools",
             description: "Install Wireless tools",
+        }),
+        // Gaming
+        Box::new(FeatureGroup {
+            name: "Gaming".to_string(),
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "steam steam-native-runtime",
+            description: "Install Steam",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "lutris gamemode lib32-gamemode innoextract gvfs lib32-vkd3d lib32-vulkan-icd-loader vkd3d vulkan-icd-loader vulkan-tools wine winetricks",
+            description: "Install Lutris",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "protonplus",
+            description: "Install Proton Plus",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "mangohud",
+            description: "Install MangoHud",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "piper",
+            description: "Install Piper",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "openrgb",
+            description: "Install OpenRGB",
+        }),
+        Box::new(yay_package::YayPackage {
+            package_name: "lug-helper",
+            description: "Install Star Citizen LUG Helper",
         }),
     ];
 
