@@ -7,10 +7,10 @@ mod docker;
 mod filesystem;
 mod fish_default_shell;
 mod gnome_app_indicator;
-mod gnome_arc_menu;
 mod gnome_blur_my_shell;
 mod gnome_dark_mode;
 mod gnome_dash_to_panel;
+mod gnome_just_perfection;
 mod gnome_mouse_acceleration;
 mod gnome_shortcuts;
 mod gnome_system_monitor;
@@ -24,13 +24,7 @@ mod shell;
 mod terminator;
 mod ui;
 mod yay;
-mod zsh_autosuggestions;
-mod zsh_completions;
-mod zsh_default_shell;
-mod zsh_keybindings;
-mod zsh_powerlevel10k;
-mod zsh_syntax_highlighting;
-mod zshrc;
+mod yay_package;
 
 pub trait Feature {
     fn install(&self, root_shell: &mut RootShell) -> bool;
@@ -73,12 +67,6 @@ fn main() {
             name: "Shell".to_string(),
         }),
         Box::new(fish_default_shell::FishDefaultShell {}),
-        //Box::new(zsh_default_shell::ZshDefaultShell {}),
-        //Box::new(zsh_completions::ZshCompletions {}),
-        //Box::new(zsh_syntax_highlighting::ZshSyntaxHighlighting {}),
-        //Box::new(zsh_autosuggestions::ZshAutoSuggestions {}),
-        //Box::new(zsh_powerlevel10k::ZshPowerLevel10k {}),
-        //Box::new(zsh_keybindings::ZshCommonKeyBindings {}),
         Box::new(kitty::Kitty {}),
         Box::new(terminator::Terminator {}),
         // Gnome
@@ -96,8 +84,12 @@ fn main() {
         Box::new(gnome_system_monitor::GnomeShellExtensionSystemMonitor {}),
         Box::new(gnome_dash_to_panel::GnomeShellExtensionDashToPanel {}),
         Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
-        Box::new(gnome_arc_menu::GnomeShellExtensionArcMenu {}),
         Box::new(gnome_blur_my_shell::GnomeShellExtensionBlurMyShell {}),
+        Box::new(gnome_just_perfection::GnomeShellExtensionJustPerfection {}),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "arc-gtk-theme",
+            description: "Install GTK Arc Theme",
+        }),
         // Apps
         Box::new(FeatureGroup {
             name: "Common Packages".to_string(),
