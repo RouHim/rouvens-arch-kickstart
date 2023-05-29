@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.3.0...1.4.0) (2023-05-29)
+
+
+### Features
+
+* **packages:** add more gaming section ([3fa5235](https://github.com/RouHim/rouvens-arch-kickstart/commit/3fa523507c6e46b8453477fd8c17f3d55bfe7389))
+
 # [1.3.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.2.0...1.3.0) (2023-05-29)
 
 
