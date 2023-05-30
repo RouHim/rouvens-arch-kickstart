@@ -1,6 +1,7 @@
 use crate::shell::RootShell;
 use crate::{pacman, shell, Feature};
 
+#[derive(Clone)]
 pub struct Bluetooth {}
 
 const SERVICE_NAME: &str = "bluetooth.service";

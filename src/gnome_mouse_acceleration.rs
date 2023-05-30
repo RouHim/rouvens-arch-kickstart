@@ -3,6 +3,7 @@ use crate::Feature;
 use crate::shell;
 use crate::shell::RootShell;
 
+#[derive(Clone)]
 pub struct GnomeDisableMouseAcceleration {}
 
 impl Feature for GnomeDisableMouseAcceleration {

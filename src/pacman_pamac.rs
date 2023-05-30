@@ -1,6 +1,7 @@
 use crate::shell::RootShell;
 use crate::{pacman, Feature};
 
+#[derive(Clone)]
 pub struct PacmanPamac {}
 
 const PACKAGE_NAME: &str = "pamac";

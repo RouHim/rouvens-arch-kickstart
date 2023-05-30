@@ -6,6 +6,7 @@ use crate::shell::RootShell;
 use crate::yay::is_installed;
 use crate::{pacman, shell, Feature};
 
+#[derive(Clone)]
 pub struct FishDefaultShell {}
 
 const FISH_CONFIG: &str = r#"

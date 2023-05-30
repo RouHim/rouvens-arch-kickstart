@@ -4,6 +4,7 @@ use std::thread;
 use crate::shell::RootShell;
 use crate::{filesystem, pacman, shell, Feature};
 
+#[derive(Clone)]
 pub struct Kitty {}
 
 const PACKAGE_NAME: &str = "kitty";

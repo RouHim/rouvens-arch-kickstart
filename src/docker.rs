@@ -2,6 +2,7 @@ use crate::shell::RootShell;
 use crate::{pacman, shell, Feature};
 use std::thread;
 
+#[derive(Clone)]
 pub struct Docker {}
 
 const SERVICE_NAME: &str = "docker.service";

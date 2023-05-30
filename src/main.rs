@@ -1,5 +1,8 @@
 use crate::chaotic_aur::ChaoticAur;
 use crate::shell::RootShell;
+use dyn_clone::DynClone;
+
+use std::boxed::Box;
 
 mod bluetooth;
 mod chaotic_aur;
@@ -26,7 +29,7 @@ mod ui;
 mod yay;
 mod yay_package;
 
-pub trait Feature {
+pub trait Feature: DynClone {
     fn install(&self, root_shell: &mut RootShell) -> bool;
     fn uninstall(&self, root_shell: &mut RootShell) -> bool;
     fn is_installed(&self) -> bool;
@@ -225,7 +228,7 @@ fn main() {
         }),
     ];
 
-    ui::show(root_shell, features).expect("Failed to run ui");
+    ui::show(root_shell, features);
 }
 
 fn ensure_chaotic_aur_is_installed(root_shell: &mut RootShell) {
@@ -279,6 +282,7 @@ fn ensure_non_root_privileges() {
     );
 }
 
+#[derive(Clone)]
 pub struct FeatureGroup {
     pub name: String,
 }

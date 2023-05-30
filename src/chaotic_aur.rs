@@ -3,6 +3,7 @@ use std::fs;
 use crate::shell::RootShell;
 use crate::{shell, Feature};
 
+#[derive(Clone)]
 pub struct ChaoticAur {}
 
 const PACMAN_CONFIG_FILE: &str = "/etc/pacman.conf";

@@ -2,6 +2,7 @@ use crate::shell::RootShell;
 
 use crate::{pacman, shell, Feature};
 
+#[derive(Clone)]
 pub struct Rust {}
 
 const PACKAGE_NAME: &str = "rustup";
