@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.4.0...1.5.0) (2023-05-30)
+
+
+### Features
+
+* **eframe:** add wayland support ([504ad58](https://github.com/RouHim/rouvens-arch-kickstart/commit/504ad583867f67257503091516b4b36f30e75a7a))
+
 # [1.4.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.3.0...1.4.0) (2023-05-29)
 
 
