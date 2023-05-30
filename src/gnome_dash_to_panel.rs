@@ -1,6 +1,7 @@
 use crate::shell::RootShell;
 use crate::{pacman, shell, Feature};
 
+#[derive(Clone)]
 pub struct GnomeShellExtensionDashToPanel {}
 
 const PACKAGE_NAME: &str = "gnome-shell-extension-dash-to-panel";

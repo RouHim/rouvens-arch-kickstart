@@ -1,7 +1,7 @@
 use crate::shell::RootShell;
 use crate::{shell, yay, Feature};
-use eframe::egui::TextBuffer;
 
+#[derive(Clone)]
 pub struct GnomeShellExtensionJustPerfection {}
 
 const PACKAGE_NAME: &str = "gnome-shell-extension-just-perfection-desktop";
@@ -9,7 +9,7 @@ const PACKAGE_NAME: &str = "gnome-shell-extension-just-perfection-desktop";
 impl Feature for GnomeShellExtensionJustPerfection {
     fn install(&self, _root_shell: &mut RootShell) -> bool {
         yay::install(PACKAGE_NAME);
-        shell::execute("gnome-extensions enable just-perfection-desktop@just-perfection".as_str())
+        shell::execute("gnome-extensions enable just-perfection-desktop@just-perfection")
     }
 
     fn uninstall(&self, _root_shell: &mut RootShell) -> bool {

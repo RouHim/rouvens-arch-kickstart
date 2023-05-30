@@ -1,99 +1,110 @@
-use std::collections::HashMap;
+use gtk4::glib;
+use gtk4::glib::clone;
+use gtk4::prelude::*;
+use gtk4::prelude::{ApplicationExt, ApplicationExtManual};
+use gtk4::Application;
 
-use eframe::egui;
+use std::sync::{Arc, Mutex};
 
 use crate::shell::RootShell;
 use crate::Feature;
 
-const TITLE: &str = "Rouvens Arch Kickstart";
+dyn_clone::clone_trait_object!(Feature);
 
-pub fn show(root_shell: RootShell, features: Vec<Box<dyn Feature>>) -> Result<(), eframe::Error> {
-    env_logger::init();
+pub fn show(root_shell: RootShell, features: Vec<Box<dyn Feature>>) {
+    let root_shell: Arc<Mutex<RootShell>> = Arc::new(Mutex::new(root_shell));
 
-    let options = eframe::NativeOptions {
-        initial_window_size: Some(egui::vec2(480.0, 720.0)),
-        ..Default::default()
-    };
+    let application = Application::new(
+        Some("com.github.gtk4-rs.examples.basic"),
+        Default::default(),
+    );
 
-    let mut feature_state = HashMap::<String, bool>::new();
-
-    for feature in &features {
-        let name = feature.get_name();
-        let is_installed = feature.is_installed();
-        feature_state.insert(name, is_installed);
-    }
-
-    let initial_state = Box::<AppState>::new(AppState {
-        features,
-        feature_state,
-        root_shell,
+    application.connect_activate(move |app| {
+        let cloned_features = features.to_vec();
+        build_ui(app, &root_shell, cloned_features);
     });
 
-    eframe::run_native(TITLE, options, Box::new(|_cc| initial_state))
+    application.run();
 }
 
-struct AppState {
+fn build_ui(
+    application: &Application,
+    root_shell: &Arc<Mutex<RootShell>>,
     features: Vec<Box<dyn Feature>>,
-    feature_state: HashMap<String, bool>,
-    root_shell: RootShell,
-}
+) {
+    let window = gtk4::ApplicationWindow::new(application);
 
-impl eframe::App for AppState {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        egui::CentralPanel::default().show(ctx, |ui| {
-            ui.horizontal(|ui| {
-                ui.heading(TITLE);
-                if ui.button("Check feature states").clicked() {
-                    for feature in &mut self.features {
-                        self.feature_state
-                            .insert(feature.get_name(), feature.is_installed());
-                    }
-                };
-            });
+    window.set_title(Some("Rouvens arch kickstart"));
+    window.set_default_size(480, 720);
 
-            ui.separator();
+    let headerbar = gtk4::HeaderBar::new();
+    window.set_titlebar(Some(&headerbar));
 
-            egui::ScrollArea::vertical().show(ui, |ui| {
-                for feature in &mut self.features {
-                    let name = feature.get_name();
+    let content = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
+    let scroll = gtk4::ScrolledWindow::new();
+    scroll.set_policy(gtk4::PolicyType::Never, gtk4::PolicyType::Automatic);
+    scroll.set_vexpand(true);
+    scroll.set_hexpand(true);
+    scroll.set_child(Some(&content));
+    window.set_child(Some(&scroll));
 
-                    if feature.is_group_element() {
-                        ui.add_space(20.0);
-                        ui.heading(&name);
-                        ui.separator();
-                        continue;
-                    }
+    for feature in features {
+        let name = feature.get_name();
+        let is_installed = feature.is_installed();
 
-                    let is_installed = *self.feature_state.get(&name).unwrap();
+        if feature.is_group_element() {
+            let label = gtk4::Label::new(Some(&name));
+            label.set_halign(gtk4::Align::Start);
+            label.set_valign(gtk4::Align::Center);
+            content.append(&label);
+        } else {
+            // Clone the feature
+            let feature_clone: Arc<Mutex<Box<dyn Feature>>> = Arc::new(Mutex::new(feature));
 
-                    ui.horizontal(|ui| {
-                        ui.monospace(format!("{}:", name));
+            // Install button
+            let btn_install = gtk4::Button::with_label(&name);
+            btn_install.set_hexpand(true);
+            btn_install.set_sensitive(!is_installed);
 
-                        ui.separator();
+            // Uninstall button
+            let btn_uninstall = gtk4::Button::with_label("X");
+            btn_uninstall.set_sensitive(is_installed);
 
-                        let install_button =
-                            ui.button(if is_installed { "Uninstall" } else { "Install" });
-                        if install_button.clicked() {
-                            // Install or uninstall
-                            let ok = if is_installed {
-                                feature.uninstall(&mut self.root_shell)
-                            } else {
-                                feature.install(&mut self.root_shell)
-                            };
+            btn_install.connect_clicked(
+                clone!(@weak btn_install, @weak btn_uninstall, @weak root_shell, @strong feature_clone => move |_| {
+                    let mut root_shell = root_shell.lock().unwrap();
+                    let feature = feature_clone.lock().unwrap();
 
-                            if !ok {
-                                ui.add(egui::Label::new("Failed to install/uninstall"));
-                            }
+                    feature.install(&mut root_shell);
 
-                            // Update state
-                            self.feature_state
-                                .insert(feature.get_name(), feature.is_installed());
-                        };
-                    });
-                }
-            });
-        });
+                    let feature_installed = feature.is_installed();
+                    btn_install.set_sensitive(!feature_installed);
+                    btn_uninstall.set_sensitive(feature_installed);
+                }),
+            );
+
+            btn_uninstall.connect_clicked(
+                clone!(@weak btn_uninstall, @weak btn_install , @weak root_shell, @strong feature_clone => move |_| {
+                    let mut root_shell = root_shell.lock().unwrap();
+                    let feature = feature_clone.lock().unwrap();
+                    feature.uninstall(&mut root_shell);
+
+                    let feature_installed = feature.is_installed();
+                    btn_install.set_sensitive(!feature_installed);
+                    btn_uninstall.set_sensitive(feature_installed);
+                }),
+            );
+
+            // Horizontal box for the buttons
+            let hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 5);
+
+            // hbox fill line
+            hbox.append(&btn_install);
+            hbox.append(&btn_uninstall);
+
+            content.append(&hbox);
+        }
     }
-}
 
-impl AppState {}
+    window.present();
+}

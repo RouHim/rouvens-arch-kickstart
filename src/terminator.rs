@@ -4,6 +4,7 @@ use std::path::Path;
 use crate::shell::RootShell;
 use crate::{pacman, shell, Feature};
 
+#[derive(Clone)]
 pub struct Terminator {}
 
 const PACKAGE_NAME: &str = "terminator";

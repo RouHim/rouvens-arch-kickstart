@@ -4,6 +4,7 @@ use crate::shell;
 use crate::shell::RootShell;
 use crate::Feature;
 
+#[derive(Clone)]
 pub struct GnomeKeyboardShortcuts {}
 
 impl Feature for GnomeKeyboardShortcuts {
@@ -20,10 +21,10 @@ impl Feature for GnomeKeyboardShortcuts {
         shell::execute(format!("chmod +x {temp_file}").as_mut_str());
 
         // Execute it as user
-        shell::execute(temp_file)
+        shell::execute(temp_file);
 
         // Delete temp file
-        //shell::execute(format!("rm -rf {temp_file}"));
+        shell::execute(format!("rm -rf {temp_file}"))
     }
 
     fn uninstall(&self, _root_shell: &mut RootShell) -> bool {

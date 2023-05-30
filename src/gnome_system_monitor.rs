@@ -1,6 +1,7 @@
 use crate::shell::RootShell;
 use crate::{pacman, shell, yay, Feature};
 
+#[derive(Clone)]
 pub struct GnomeShellExtensionSystemMonitor {}
 
 const PACKAGE_NAME: &str = "gnome-shell-extension-system-monitor-next-git";

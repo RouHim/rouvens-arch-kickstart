@@ -1,6 +1,7 @@
 use crate::shell::RootShell;
 use crate::{yay, Feature};
 
+#[derive(Clone)]
 pub struct YayPackage {
     pub package_name: &'static str,
     pub description: &'static str,

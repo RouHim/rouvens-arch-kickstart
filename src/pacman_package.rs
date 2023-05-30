@@ -1,6 +1,7 @@
 use crate::shell::RootShell;
 use crate::{pacman, Feature};
 
+#[derive(Clone)]
 pub struct PacmanPackage {
     pub package_name: &'static str,
     pub description: &'static str,

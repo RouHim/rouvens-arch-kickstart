@@ -2,6 +2,7 @@ use crate::shell;
 use crate::shell::RootShell;
 use crate::Feature;
 
+#[derive(Clone)]
 pub struct GnomeDarkMode {}
 
 impl Feature for GnomeDarkMode {

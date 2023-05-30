@@ -1,5 +1,8 @@
 use crate::chaotic_aur::ChaoticAur;
 use crate::shell::RootShell;
+use dyn_clone::DynClone;
+
+use std::boxed::Box;
 
 mod bluetooth;
 mod chaotic_aur;
@@ -25,9 +28,8 @@ mod terminator;
 mod ui;
 mod yay;
 mod yay_package;
-mod gtk_ui;
 
-pub trait Feature {
+pub trait Feature: DynClone {
     fn install(&self, root_shell: &mut RootShell) -> bool;
     fn uninstall(&self, root_shell: &mut RootShell) -> bool;
     fn is_installed(&self) -> bool;
@@ -41,14 +43,14 @@ fn main() {
     // Ensure that the user is running the script as non root
     // And the home directory is not root
     // And the user is running an arch based distro
-    // ensure_non_root_privileges();
-    // ensure_arch_based_distro();
+    ensure_non_root_privileges();
+    ensure_arch_based_distro();
 
     // Request root shell
     let mut root_shell: RootShell = RootShell::new().unwrap();
 
-    // ensure_yay_is_installed(&mut root_shell);
-    // ensure_chaotic_aur_is_installed(&mut root_shell);
+    ensure_yay_is_installed(&mut root_shell);
+    ensure_chaotic_aur_is_installed(&mut root_shell);
 
     let features: Vec<Box<dyn Feature>> = vec![
         // Pacman
@@ -226,7 +228,7 @@ fn main() {
         }),
     ];
 
-    gtk_ui::show(root_shell, features);
+    ui::show(root_shell, features);
 }
 
 fn ensure_chaotic_aur_is_installed(root_shell: &mut RootShell) {
@@ -280,6 +282,7 @@ fn ensure_non_root_privileges() {
     );
 }
 
+#[derive(Clone)]
 pub struct FeatureGroup {
     pub name: String,
 }

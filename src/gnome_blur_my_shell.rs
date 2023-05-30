@@ -1,7 +1,7 @@
 use crate::shell::RootShell;
 use crate::{pacman, shell, Feature};
-use eframe::egui::TextBuffer;
 
+#[derive(Clone)]
 pub struct GnomeShellExtensionBlurMyShell {}
 
 const PACKAGE_NAME: &str = "gnome-shell-extension-blur-my-shell";
@@ -9,7 +9,7 @@ const PACKAGE_NAME: &str = "gnome-shell-extension-blur-my-shell";
 impl Feature for GnomeShellExtensionBlurMyShell {
     fn install(&self, root_shell: &mut RootShell) -> bool {
         pacman::install(PACKAGE_NAME, root_shell);
-        shell::execute("gnome-extensions enable blur-my-shell@aunetx".as_str())
+        shell::execute("gnome-extensions enable blur-my-shell@aunetx")
     }
 
     fn uninstall(&self, root_shell: &mut RootShell) -> bool {
