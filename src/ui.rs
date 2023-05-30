@@ -41,11 +41,13 @@ fn build_ui(
     window.set_titlebar(Some(&headerbar));
 
     let content = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
+
     let scroll = gtk4::ScrolledWindow::new();
     scroll.set_policy(gtk4::PolicyType::Never, gtk4::PolicyType::Automatic);
     scroll.set_vexpand(true);
     scroll.set_hexpand(true);
     scroll.set_child(Some(&content));
+
     window.set_child(Some(&scroll));
 
     for feature in features {
@@ -53,10 +55,15 @@ fn build_ui(
         let is_installed = feature.is_installed();
 
         if feature.is_group_element() {
-            let label = gtk4::Label::new(Some(&name));
-            label.set_halign(gtk4::Align::Start);
-            label.set_valign(gtk4::Align::Center);
-            content.append(&label);
+            let group_header = gtk4::Label::new(Some(&name));
+            group_header.set_hexpand(true);
+            group_header.set_margin_top(10);
+            group_header.set_margin_bottom(10);
+            group_header.set_margin_start(10);
+            group_header.set_margin_end(10);
+            group_header.set_xalign(0.0);
+
+            content.append(&group_header);
         } else {
             // Clone the feature
             let feature_clone: Arc<Mutex<Box<dyn Feature>>> = Arc::new(Mutex::new(feature));
