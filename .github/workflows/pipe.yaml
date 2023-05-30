@@ -37,6 +37,9 @@ jobs:
           profile: minimal
           toolchain: stable
 
+      - name: Install gtk4 dependencies
+        run: sudo apt install -y libgtk-4-dev build-essential
+
       - uses: Swatinem/rust-cache@v2 # use /rust/cargo caching
 
       - name: Check the code style
@@ -54,6 +57,9 @@ jobs:
         with:
           profile: minimal
           toolchain: stable
+
+      - name: Install gtk4 dependencies
+        run: sudo apt install -y libgtk-4-dev build-essential
 
       - uses: Swatinem/rust-cache@v2 # use /rust/cargo caching
 
@@ -73,6 +79,9 @@ jobs:
           profile: minimal
           toolchain: stable
 
+      - name: Install gtk4 dependencies
+        run: sudo apt install -y libgtk-4-dev build-essential
+
       - uses: Swatinem/rust-cache@v2 # use /rust/cargo caching
 
       - name: Test code
@@ -90,6 +99,9 @@ jobs:
         with:
           profile: minimal
           toolchain: nightly
+
+      - name: Install gtk4 dependencies
+        run: sudo apt install -y libgtk-4-dev build-essential
 
       - uses: Swatinem/rust-cache@v2 # use /rust/cargo caching
         continue-on-error: true # upload cache even if there are errors in this step
@@ -113,6 +125,9 @@ jobs:
         with:
           profile: default
           toolchain: stable
+
+      - name: Install gtk4 dependencies
+        run: sudo apt install -y libgtk-4-dev build-essential
 
       - uses: Swatinem/rust-cache@v2 # use /rust/cargo caching
 
