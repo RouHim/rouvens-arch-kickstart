@@ -40,7 +40,7 @@ impl Feature for FishDefaultShell {
         append_to_fish_config(FISH_CONFIG);
 
         // Install tide via fisher
-        shell::execute("fish -c 'fisher install IlanCosman/tide'");
+        shell::execute("fish -c 'fisher install IlanCosman/tide@v5'");
 
         let username = shell::get_current_user();
         shell::execute(format!("pkexec chsh --shell $(which fish) {username}"));
