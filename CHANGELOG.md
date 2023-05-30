@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.5.0...1.5.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* broken deps ([ae7d7ff](https://github.com/RouHim/rouvens-arch-kickstart/commit/ae7d7ff9c8c3af1bb49bf85cb586a663e828e645))
+
 # [1.5.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.4.0...1.5.0) (2023-05-30)
 
 
