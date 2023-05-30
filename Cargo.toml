@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 lazy_static = "1.4.0"
-eframe = "0.22.0"
+eframe = { version = "0.22.0", features = ["wayland"] }
 env_logger = "0.10.0"
 ureq = "2.6"
 
