@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.5.1...1.5.2) (2023-05-30)
+
+
+### Bug Fixes
+
+* **tide:** install latest feature of tide ([4a35e4f](https://github.com/RouHim/rouvens-arch-kickstart/commit/4a35e4f334df0b5b2e53c943a2b67e1c385c464f))
+
 ## [1.5.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.5.0...1.5.1) (2023-05-30)
 
 
