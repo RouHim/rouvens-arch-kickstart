@@ -65,6 +65,10 @@ fn main() {
             package_name: "noto-fonts-emoji",
             description: "Install emoji support",
         }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "appimagelauncher",
+            description: "Install AppImageLauncher",
+        }),
         // Shell
         Box::new(FeatureGroup {
             name: "Shell".to_string(),
