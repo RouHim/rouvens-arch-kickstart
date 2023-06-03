@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.6.0...1.7.0) (2023-06-03)
+
+
+### Features
+
+* **packages:** add app papirus icons ([e706f16](https://github.com/RouHim/rouvens-arch-kickstart/commit/e706f1604e2d39d464cdc8391f09b78e580f0218))
+
 # [1.6.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.5.2...1.6.0) (2023-06-03)
 
 
