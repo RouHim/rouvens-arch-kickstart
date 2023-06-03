@@ -97,6 +97,10 @@ fn main() {
             package_name: "arc-gtk-theme",
             description: "Install GTK Arc Theme",
         }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "papirus-icon-theme",
+            description: "Install Papirus Icons",
+        }),
         // Apps
         Box::new(FeatureGroup {
             name: "Common Packages".to_string(),
