@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.5.2...1.6.0) (2023-06-03)
+
+
+### Features
+
+* **packages:** add app image launcher ([1e7777d](https://github.com/RouHim/rouvens-arch-kickstart/commit/1e7777dea4e18adb91de91659a5c71ca727226d0))
+
 ## [1.5.2](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.5.1...1.5.2) (2023-05-30)
 
 
