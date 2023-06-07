@@ -207,6 +207,10 @@ fn main() {
             name: "Gaming".to_string(),
         }),
         Box::new(pacman_package::PacmanPackage {
+            package_name: "wine linux-tkg-bmq linux-tkg-bmq-headers",
+            description: "Install Liunx TKG BMQ",
+        }),
+        Box::new(pacman_package::PacmanPackage {
             package_name: "steam steam-native-runtime",
             description: "Install Steam",
         }),
@@ -233,6 +237,10 @@ fn main() {
         Box::new(yay_package::YayPackage {
             package_name: "lug-helper",
             description: "Install Star Citizen LUG Helper",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "liquidctl",
+            description: "Install Liquidctl",
         }),
     ];
 
