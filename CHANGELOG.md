@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.7.0...1.8.0) (2023-06-07)
+
+
+### Features
+
+* **packages:** add liquidctl and LINUX TKG BMQ ([5ada3a5](https://github.com/RouHim/rouvens-arch-kickstart/commit/5ada3a59a160995f34d4ff2007cda11336bb329e))
+
 # [1.7.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.6.0...1.7.0) (2023-06-03)
 
 
