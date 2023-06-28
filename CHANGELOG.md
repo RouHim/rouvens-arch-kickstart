@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.8.1...1.9.0) (2023-06-28)
+
+
+### Features
+
+* **packages:** add app mutter perf ([ea78722](https://github.com/RouHim/rouvens-arch-kickstart/commit/ea78722c463d8f25e28ce3ede00c1b849898d101))
+
 ## [1.8.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.8.0...1.8.1) (2023-06-17)
 
 # [1.8.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.7.0...1.8.0) (2023-06-07)
