@@ -69,6 +69,10 @@ fn main() {
             package_name: "appimagelauncher",
             description: "Install AppImageLauncher",
         }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "mutter-performance",
+            description: "Install Mutter performance",
+        }),
         // Shell
         Box::new(FeatureGroup {
             name: "Shell".to_string(),
