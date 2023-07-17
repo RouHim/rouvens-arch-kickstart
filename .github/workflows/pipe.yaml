@@ -107,7 +107,7 @@ jobs:
         continue-on-error: true # upload cache even if there are errors in this step
 
       - name: Install cargo-udeps
-        run: cargo update -p proc-macro2 --precise 1.0.65 && cargo install cargo-udeps --locked
+        run: cargo update -p proc-macro2 && cargo install cargo-udeps --locked
 
       - name: Analyze dependencies
         run: cargo +nightly udeps
