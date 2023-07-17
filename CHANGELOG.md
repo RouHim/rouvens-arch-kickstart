@@ -1,3 +1,11 @@
+## [1.10.2](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.1...1.10.2) (2023-07-17)
+
+
+### Bug Fixes
+
+* **pipe:** re-added cache ([557d065](https://github.com/RouHim/rouvens-arch-kickstart/commit/557d06512bdf39d75424d34f5e051719e4c11ff5))
+* **pipe:** upgrade proc macros ([aa697a1](https://github.com/RouHim/rouvens-arch-kickstart/commit/aa697a15a63462a83a48cd17a3c44da781c486ba))
+
 ## [1.10.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.0...1.10.1) (2023-07-17)
 
 
