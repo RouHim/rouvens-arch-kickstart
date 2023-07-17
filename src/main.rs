@@ -6,22 +6,30 @@ use std::boxed::Box;
 
 mod bluetooth;
 mod chaotic_aur;
+mod common_system_fixes;
 mod docker;
 mod filesystem;
 mod fish_default_shell;
 mod gnome_app_indicator;
+mod gnome_arc_gtk_theme;
 mod gnome_blur_my_shell;
 mod gnome_dark_mode;
 mod gnome_dash_to_panel;
 mod gnome_just_perfection;
 mod gnome_mouse_acceleration;
+mod gnome_over_amplification;
 mod gnome_shortcuts;
 mod gnome_system_monitor;
 mod gnome_tap_to_click;
+mod gnome_tiling_assistant;
+mod gnome_window_buttons;
+mod hibernate_lid_closed;
 mod kitty;
+mod mutter_perf;
 mod pacman;
 mod pacman_package;
 mod pacman_pamac;
+mod remove_eos_welcome;
 mod rust;
 mod shell;
 mod terminator;
@@ -66,13 +74,17 @@ fn main() {
             description: "Install emoji support",
         }),
         Box::new(pacman_package::PacmanPackage {
+            package_name: "ttf-fira-code",
+            description: "Install fira code font",
+        }),
+        Box::new(pacman_package::PacmanPackage {
             package_name: "appimagelauncher",
             description: "Install AppImageLauncher",
         }),
-        Box::new(pacman_package::PacmanPackage {
-            package_name: "mutter-performance",
-            description: "Install Mutter performance",
-        }),
+        Box::new(mutter_perf::MutterPerformance {}),
+        Box::new(common_system_fixes::CommonSystemFixes {}),
+        Box::new(hibernate_lid_closed::HibernateWhenLidClosed {}),
+        Box::new(remove_eos_welcome::RemoveEosWelcome {}),
         // Shell
         Box::new(FeatureGroup {
             name: "Shell".to_string(),
@@ -97,14 +109,14 @@ fn main() {
         Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
         Box::new(gnome_blur_my_shell::GnomeShellExtensionBlurMyShell {}),
         Box::new(gnome_just_perfection::GnomeShellExtensionJustPerfection {}),
-        Box::new(pacman_package::PacmanPackage {
-            package_name: "arc-gtk-theme",
-            description: "Install GTK Arc Theme",
-        }),
+        Box::new(gnome_tiling_assistant::GnomeShellExtensionTilingAssistant {}),
+        Box::new(gnome_arc_gtk_theme::GnomeArcGtkTheme {}),
         Box::new(pacman_package::PacmanPackage {
             package_name: "papirus-icon-theme",
             description: "Install Papirus Icons",
         }),
+        Box::new(gnome_window_buttons::GnomeEnableWindowButtons {}),
+        Box::new(gnome_over_amplification::GnomeOverAmplification {}),
         // Apps
         Box::new(FeatureGroup {
             name: "Common Packages".to_string(),
@@ -164,6 +176,10 @@ fn main() {
         Box::new(pacman_package::PacmanPackage {
             package_name: "usbimager",
             description: "Install USB Imager",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "deja-dup",
+            description: "Install Déjà Dup",
         }),
         // Development
         Box::new(FeatureGroup {

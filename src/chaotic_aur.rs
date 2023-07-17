@@ -1,7 +1,8 @@
+use scraper::Html;
 use std::fs;
 
 use crate::shell::RootShell;
-use crate::{shell, Feature};
+use crate::Feature;
 
 #[derive(Clone)]
 pub struct ChaoticAur {}
@@ -17,11 +18,10 @@ Include = /etc/pacman.d/chaotic-mirrorlist
 
 impl Feature for ChaoticAur {
     fn install(&self, root_shell: &mut RootShell) -> bool {
-        shell::execute("pacman-key --init");
-        root_shell
-            .execute("pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com");
-        root_shell.execute("pacman-key --lsign-key FBA220DFC880C036");
-        root_shell.execute("pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm");
+        // For each parsed command, execute it as root
+        parse_aur_install_cmds().iter().for_each(|cmd| {
+            root_shell.execute(cmd);
+        });
 
         if !pacman_config_contains_chaotic() {
             append_chaotic_to_pacman_conf(root_shell);
@@ -47,6 +47,30 @@ impl Feature for ChaoticAur {
     }
 }
 
+fn parse_aur_install_cmds() -> Vec<String> {
+    let html = ureq::get("https://aur.chaotic.cx/")
+        .call()
+        .unwrap()
+        .into_string()
+        .unwrap();
+
+    let document = Html::parse_document(&html);
+    let selector = scraper::Selector::parse("code.command").unwrap();
+    let parsed_cmds = document.select(&selector);
+
+    let cmds: Vec<String> = parsed_cmds
+        .into_iter()
+        .map(|command| {
+            command
+                .inner_html()
+                .replace('\n', "")
+                .as_str()
+                .trim()
+                .to_string()
+        })
+        .collect();
+    cmds
+}
 fn remove_chaotic_from_pacman_conf() {
     let pacman_config = fs::read(PACMAN_CONFIG_FILE).unwrap();
     let mut pacman_config = String::from_utf8(pacman_config).unwrap();
