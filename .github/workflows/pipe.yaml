@@ -103,9 +103,6 @@ jobs:
       - name: Install gtk4 dependencies
         run: sudo apt install -y libgtk-4-dev build-essential
 
-      - uses: Swatinem/rust-cache@v2 # use /rust/cargo caching
-        continue-on-error: true # upload cache even if there are errors in this step
-
       - name: Install cargo-udeps
         run: cargo install cargo-udeps --locked
 
