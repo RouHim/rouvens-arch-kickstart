@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.9.0...1.10.0) (2023-07-17)
+
+
+### Features
+
+* **packages:** some fixing ([a58f292](https://github.com/RouHim/rouvens-arch-kickstart/commit/a58f2927da0a268704f038341148acb425328bc6))
+
 # [1.9.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.8.1...1.9.0) (2023-06-28)
 
 
