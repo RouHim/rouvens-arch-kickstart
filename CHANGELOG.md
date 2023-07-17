@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.0...1.10.1) (2023-07-17)
+
+
+### Bug Fixes
+
+* **pipe:** fix pipe ([f8e4241](https://github.com/RouHim/rouvens-arch-kickstart/commit/f8e4241cb8348851d57b6835e1f50bf659049983))
+
 # [1.10.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.9.0...1.10.0) (2023-07-17)
 
 
