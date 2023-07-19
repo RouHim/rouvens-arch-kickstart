@@ -1,3 +1,11 @@
+## [1.10.4](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.3...1.10.4) (2023-07-19)
+
+
+### Bug Fixes
+
+* **codestyle:** fix codestyle ([9fe5785](https://github.com/RouHim/rouvens-arch-kickstart/commit/9fe5785039e5e4eb49f3dc57a0889b7db6185e3a))
+* **root:** fix root actions ([a58b944](https://github.com/RouHim/rouvens-arch-kickstart/commit/a58b9447d8b792c1ebf48f5b7a645077fc87fad2))
+
 ## [1.10.3](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.2...1.10.3) (2023-07-17)
 
 
