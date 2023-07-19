@@ -68,9 +68,17 @@ fn parse_aur_install_cmds() -> Vec<String> {
                 .trim()
                 .to_string()
         })
+        .map(|command| {
+            if command.starts_with("pacman -U") {
+                format!("{} --noconfirm", command)
+            } else {
+                command
+            }
+        })
         .collect();
     cmds
 }
+
 fn remove_chaotic_from_pacman_conf() {
     let pacman_config = fs::read(PACMAN_CONFIG_FILE).unwrap();
     let mut pacman_config = String::from_utf8(pacman_config).unwrap();

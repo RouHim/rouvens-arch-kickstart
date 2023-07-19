@@ -19,26 +19,20 @@ impl Feature for GnomeArcGtkTheme {
         // Then install the Arc GTK theme
         pacman::install(PACKAGE_NAME, root_shell);
 
-        // Then make sure GTK_THEME Arc-Dark is set in /etc/environment
-        let environment_file = PathBuf::from("/etc/environment");
-        let environment_file_contents = fs::read_to_string(&environment_file).unwrap();
-        if !environment_file_contents.contains("GTK_THEME=Arc-Dark") {
-            fs::write(&environment_file, "GTK_THEME=Arc-Dark").unwrap();
+        // Then make sure GTK_THEME Arc-Dark is set in /etc/environment using root shell
+        if !fs::read_to_string("/etc/environment").unwrap().contains("GTK_THEME=Arc-Dark") {
+            root_shell.execute("echo 'GTK_THEME=Arc-Dark' >> /etc/environment");
         }
 
         GnomeArcGtkTheme::is_installed(self)
     }
 
-    fn uninstall(&self, _root_shell: &mut RootShell) -> bool {
+    fn uninstall(&self, root_shell: &mut RootShell) -> bool {
         // remove the Arc GTK theme
-        pacman::uninstall(PACKAGE_NAME, _root_shell);
+        pacman::uninstall(PACKAGE_NAME, root_shell);
 
-        // remove the GTK_THEME Arc-Dark from /etc/environment
-        let environment_file = PathBuf::from("/etc/environment");
-        let environment_file_contents = fs::read_to_string(&environment_file).unwrap();
-        if environment_file_contents.contains("GTK_THEME=Arc-Dark") {
-            fs::write(&environment_file, "GTK_THEME=").unwrap();
-        }
+        // remove the GTK_THEME Arc-Dark from /etc/environment using root shell
+        root_shell.execute("sed -i '/GTK_THEME=Arc-Dark/d' /etc/environment");
 
         !GnomeArcGtkTheme::is_installed(self)
     }
@@ -48,7 +42,7 @@ impl Feature for GnomeArcGtkTheme {
 
         // Check if the GTK_THEME Arc-Dark is set in /etc/environment
         let environment_file = PathBuf::from("/etc/environment");
-        let environment_file_contents = fs::read_to_string(&environment_file).unwrap();
+        let environment_file_contents = fs::read_to_string(environment_file).unwrap();
         let is_gtk_theme_arc_dark_set = environment_file_contents.contains("GTK_THEME=Arc-Dark");
 
         is_installed && is_gtk_theme_arc_dark_set
