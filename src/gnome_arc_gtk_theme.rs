@@ -20,7 +20,10 @@ impl Feature for GnomeArcGtkTheme {
         pacman::install(PACKAGE_NAME, root_shell);
 
         // Then make sure GTK_THEME Arc-Dark is set in /etc/environment using root shell
-        if !fs::read_to_string("/etc/environment").unwrap().contains("GTK_THEME=Arc-Dark") {
+        if !fs::read_to_string("/etc/environment")
+            .unwrap()
+            .contains("GTK_THEME=Arc-Dark")
+        {
             root_shell.execute("echo 'GTK_THEME=Arc-Dark' >> /etc/environment");
         }
 

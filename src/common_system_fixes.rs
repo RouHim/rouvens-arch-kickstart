@@ -15,7 +15,6 @@ impl Feature for CommonSystemFixes {
         // using root shell
         root_shell.execute("echo 'MOZ_ENABLE_WAYLAND=1' >> /etc/environment");
 
-
         CommonSystemFixes::is_installed(self)
     }
 
