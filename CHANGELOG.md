@@ -1,3 +1,11 @@
+## [1.10.5](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.4...1.10.5) (2023-07-20)
+
+
+### Bug Fixes
+
+* **codestyle:** fix codestyle ([3934aa2](https://github.com/RouHim/rouvens-arch-kickstart/commit/3934aa246532db4697352993220c982a7b32983e))
+* **package:** fix gnome over amplication ([1c44204](https://github.com/RouHim/rouvens-arch-kickstart/commit/1c44204a5ce2f849a26b3408fa7e492eb2c6516f))
+
 ## [1.10.4](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.3...1.10.4) (2023-07-19)
 
 
