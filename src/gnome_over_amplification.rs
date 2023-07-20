@@ -21,7 +21,8 @@ impl Feature for GnomeOverAmplification {
         // Check if gnome over amplification is enabled
         shell::execute_with_output(
             "gsettings get org.gnome.desktop.sound allow-volume-above-100-percent",
-        ).contains("true")
+        )
+        .contains("true")
     }
 
     fn get_name(&self) -> String {
