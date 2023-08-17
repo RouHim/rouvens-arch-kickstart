@@ -7,7 +7,7 @@ edition = "2021"
 gtk4 = "0.7.2"
 ureq = "2.7.1"
 scraper = "0.17.1"
-dyn-clone = "1.0.12"
+dyn-clone = "1.0.13"
 
 [profile.release]
 panic = "abort" # Strip expensive panic clean-up logic
