@@ -1,3 +1,5 @@
+## [1.10.11](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.10...1.10.11) (2023-09-19)
+
 ## [1.10.10](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.9...1.10.10) (2023-08-17)
 
 ## [1.10.9](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.8...1.10.9) (2023-08-12)
