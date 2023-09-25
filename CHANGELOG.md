@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.11.1...1.12.0) (2023-09-25)
+
+
+### Features
+
+* **readme:** add install shell script ([58c9110](https://github.com/RouHim/rouvens-arch-kickstart/commit/58c9110c039eaeb8c3389c85a82b48c332f3616f))
+
 ## [1.11.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.11.0...1.11.1) (2023-09-25)
 
 # [1.11.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.10.12...1.11.0) (2023-09-25)
