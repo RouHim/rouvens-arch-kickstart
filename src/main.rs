@@ -11,10 +11,11 @@ mod docker;
 mod filesystem;
 mod fish_default_shell;
 mod gnome_app_indicator;
-mod gnome_arc_gtk_theme;
 mod gnome_blur_my_shell;
 mod gnome_dark_mode;
 mod gnome_dash_to_panel;
+mod gnome_date_menu_formatter;
+mod gnome_dracula_gtk_theme;
 mod gnome_just_perfection;
 mod gnome_mouse_acceleration;
 mod gnome_over_amplification;
@@ -22,10 +23,10 @@ mod gnome_shortcuts;
 mod gnome_system_monitor;
 mod gnome_tap_to_click;
 mod gnome_tiling_assistant;
+mod gnome_user_themes;
 mod gnome_window_buttons;
 mod hibernate_lid_closed;
 mod kitty;
-mod mutter_perf;
 mod pacman;
 mod pacman_package;
 mod pacman_pamac;
@@ -81,7 +82,6 @@ fn main() {
             package_name: "appimagelauncher",
             description: "Install AppImageLauncher",
         }),
-        Box::new(mutter_perf::MutterPerformance {}),
         Box::new(common_system_fixes::CommonSystemFixes {}),
         Box::new(hibernate_lid_closed::HibernateWhenLidClosed {}),
         Box::new(remove_eos_welcome::RemoveEosWelcome {}),
@@ -104,13 +104,15 @@ fn main() {
             package_name: "gnome-browser-connector",
             description: "Install Gnome Browser connector",
         }),
+        Box::new(gnome_user_themes::GnomeShellExtensionUserThemes {}),
+        Box::new(gnome_date_menu_formatter::GnomeShellExtensionDateMenuFormatter {}),
         Box::new(gnome_system_monitor::GnomeShellExtensionSystemMonitor {}),
         Box::new(gnome_dash_to_panel::GnomeShellExtensionDashToPanel {}),
         Box::new(gnome_app_indicator::GnomeShellExtensionAppIndicator {}),
         Box::new(gnome_blur_my_shell::GnomeShellExtensionBlurMyShell {}),
         Box::new(gnome_just_perfection::GnomeShellExtensionJustPerfection {}),
         Box::new(gnome_tiling_assistant::GnomeShellExtensionTilingAssistant {}),
-        Box::new(gnome_arc_gtk_theme::GnomeArcGtkTheme {}),
+        Box::new(gnome_dracula_gtk_theme::GnomeDraculaGtkTheme {}),
         Box::new(pacman_package::PacmanPackage {
             package_name: "papirus-icon-theme",
             description: "Install Papirus Icons",
@@ -122,8 +124,12 @@ fn main() {
             name: "Common Packages".to_string(),
         }),
         Box::new(pacman_package::PacmanPackage {
-            package_name: "fwupd",
-            description: "Install firmware updater",
+            package_name: "firefox",
+            description: "Install firefox",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "gnome-firmware",
+            description: "Install gnome firmware updater",
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "topgrade",
@@ -171,7 +177,7 @@ fn main() {
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "signal-desktop",
-            description: "Install Signal",
+            description: "Install signal desktop",
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "usbimager",

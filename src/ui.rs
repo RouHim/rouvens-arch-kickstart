@@ -4,6 +4,9 @@ use gtk4::prelude::*;
 use gtk4::prelude::{ApplicationExt, ApplicationExtManual};
 use gtk4::Application;
 
+use std::ops::Deref;
+use std::rc::Rc;
+
 use std::sync::{Arc, Mutex};
 
 use crate::shell::RootShell;
@@ -66,7 +69,7 @@ fn build_ui(
             content.append(&group_header);
         } else {
             // Clone the feature
-            let feature_clone: Arc<Mutex<Box<dyn Feature>>> = Arc::new(Mutex::new(feature));
+            let feature_clone: Rc<Box<dyn Feature>> = Rc::new(feature);
 
             // Install button
             let btn_install = gtk4::Button::with_label(&name);
@@ -80,7 +83,7 @@ fn build_ui(
             btn_install.connect_clicked(
                 clone!(@weak btn_install, @weak btn_uninstall, @weak root_shell, @strong feature_clone => move |_| {
                     let mut root_shell = root_shell.lock().unwrap();
-                    let feature = feature_clone.lock().unwrap();
+                    let feature = feature_clone.deref();
 
                     feature.install(&mut root_shell);
 
@@ -93,7 +96,7 @@ fn build_ui(
             btn_uninstall.connect_clicked(
                 clone!(@weak btn_uninstall, @weak btn_install , @weak root_shell, @strong feature_clone => move |_| {
                     let mut root_shell = root_shell.lock().unwrap();
-                    let feature = feature_clone.lock().unwrap();
+                    let feature = feature_clone.deref();
                     feature.uninstall(&mut root_shell);
 
                     let feature_installed = feature.is_installed();

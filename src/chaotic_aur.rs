@@ -18,14 +18,18 @@ Include = /etc/pacman.d/chaotic-mirrorlist
 
 impl Feature for ChaoticAur {
     fn install(&self, root_shell: &mut RootShell) -> bool {
-        // For each parsed command, execute it as root
+        // Install Chaotic AUR repo
         parse_aur_install_cmds().iter().for_each(|cmd| {
             root_shell.execute(cmd);
         });
 
+        // Add to pacman.conf
         if !pacman_config_contains_chaotic() {
             append_chaotic_to_pacman_conf(root_shell);
         }
+
+        // Update repos
+        root_shell.execute("pacman -Sc --noconfirm");
 
         true
     }

@@ -22,6 +22,6 @@ impl Feature for RemoveEosWelcome {
     }
 
     fn get_name(&self) -> String {
-        String::from("Remove Endless OS welcome")
+        String::from("Remove EOS welcome")
     }
 }
