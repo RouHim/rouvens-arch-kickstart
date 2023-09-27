@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.12.0...1.13.0) (2023-09-27)
+
+
+### Features
+
+* **packages:** install yay from git repo and ([b8f5f18](https://github.com/RouHim/rouvens-arch-kickstart/commit/b8f5f18674c0f1898399a481840f94f5702b23cc))
+
 # [1.12.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.11.1...1.12.0) (2023-09-25)
 
 
