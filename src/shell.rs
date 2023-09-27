@@ -59,6 +59,8 @@ pub fn is_root() -> bool {
 }
 
 pub fn execute_with_output(command: impl AsRef<str>) -> String {
+    println!("Executing: {}", command.as_ref());
+
     let output = Command::new("sh")
         .arg("-c")
         .arg(command.as_ref())

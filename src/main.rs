@@ -1,8 +1,9 @@
-use crate::chaotic_aur::ChaoticAur;
-use crate::shell::RootShell;
+use std::boxed::Box;
+
 use dyn_clone::DynClone;
 
-use std::boxed::Box;
+use crate::chaotic_aur::ChaoticAur;
+use crate::shell::RootShell;
 
 mod bluetooth;
 mod chaotic_aur;
@@ -119,6 +120,10 @@ fn main() {
         }),
         Box::new(gnome_window_buttons::GnomeEnableWindowButtons {}),
         Box::new(gnome_over_amplification::GnomeOverAmplification {}),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "gnome-tweaks",
+            description: "Install gnome tweaks",
+        }),
         // Apps
         Box::new(FeatureGroup {
             name: "Common Packages".to_string(),
@@ -276,7 +281,7 @@ fn main() {
 fn ensure_chaotic_aur_is_installed(root_shell: &mut RootShell) {
     let aur = ChaoticAur {};
     if !aur.is_installed() {
-        println!("✔️ Installing Chaotic AUR");
+        println!("💫 Installing Chaotic AUR");
         aur.install(root_shell);
     } else {
         println!("✔️ Chaotic AUR is already installed");
@@ -284,9 +289,12 @@ fn ensure_chaotic_aur_is_installed(root_shell: &mut RootShell) {
 }
 
 fn ensure_yay_is_installed(root_shell: &mut RootShell) {
-    if !pacman::is_installed("yay") {
-        println!("✔️ Installing yay");
-        pacman::install("yay", root_shell);
+    if !shell::execute("yay --version") {
+        println!("💫 Installing yay");
+        if !install_yay(root_shell) {
+            println!("❌ Could not automatically install yay, please install it manually.");
+            std::process::exit(1);
+        }
     } else {
         println!("✔️ yay is already installed");
     }
@@ -349,4 +357,25 @@ impl Feature for FeatureGroup {
     fn is_group_element(&self) -> bool {
         true
     }
+}
+
+/// Installs yay
+fn install_yay(root_shell: &mut RootShell) -> bool {
+    let required_packages = "git base-devel curl sed tar";
+
+    if !pacman::is_installed(required_packages) {
+        pacman::install(required_packages, root_shell);
+    }
+
+    let latest_tag = shell::execute_with_output(
+        r#"curl -L -s -H 'Accept: application/json' https://github.com/Jguer/yay/releases/latest | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/ '"#,
+    );
+    let latest_version = latest_tag.as_str().trim().replace('v', "");
+    shell::execute_with_output(format!("curl -L -o /tmp/yay.tar.gz https://github.com/Jguer/yay/releases/download/{latest_tag}/yay_{latest_version}_x86_64.tar.gz"));
+    shell::execute("tar -xzf /tmp/yay.tar.gz -C /tmp/");
+    shell::execute(format!(
+        "/tmp/yay_{latest_version}_x86_64/yay -Sy --sudo pkexec --noconfirm yay-bin"
+    ));
+    shell::execute("rm -rf /tmp/yay*");
+    shell::execute("yay --version")
 }
