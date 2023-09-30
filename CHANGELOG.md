@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.14.0...1.15.0) (2023-09-30)
+
+
+### Features
+
+* **packages:** add tlp ([8132951](https://github.com/RouHim/rouvens-arch-kickstart/commit/8132951acc68902bbbbc4fc24d560dbf6001ad61))
+
 # [1.14.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.13.3...1.14.0) (2023-09-30)
 
 
