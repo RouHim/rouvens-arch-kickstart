@@ -124,6 +124,10 @@ fn main() {
             package_name: "gnome-tweaks",
             description: "Install gnome tweaks",
         }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "gnome-power-manager",
+            description: "Install gnome power manager",
+        }),
         // Apps
         Box::new(FeatureGroup {
             name: "Common Packages".to_string(),
