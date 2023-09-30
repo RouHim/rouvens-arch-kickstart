@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.13.3...1.14.0) (2023-09-30)
+
+
+### Features
+
+* **packages:** add gnome-power-manager ([9032be8](https://github.com/RouHim/rouvens-arch-kickstart/commit/9032be8e406e69f22b0531a3549577c16f458c55))
+
 ## [1.13.3](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.13.2...1.13.3) (2023-09-30)
 
 ## [1.13.2](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.13.1...1.13.2) (2023-09-28)
