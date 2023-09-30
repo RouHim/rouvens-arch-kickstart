@@ -83,6 +83,10 @@ fn main() {
             package_name: "appimagelauncher",
             description: "Install AppImageLauncher",
         }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "tlp",
+            description: "Install TLP",
+        }),
         Box::new(common_system_fixes::CommonSystemFixes {}),
         Box::new(hibernate_lid_closed::HibernateWhenLidClosed {}),
         Box::new(remove_eos_welcome::RemoveEosWelcome {}),
