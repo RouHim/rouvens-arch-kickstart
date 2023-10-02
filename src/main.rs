@@ -246,8 +246,8 @@ fn main() {
             name: "Gaming".to_string(),
         }),
         Box::new(pacman_package::PacmanPackage {
-            package_name: "wine linux-tkg-bmq linux-tkg-bmq-headers",
-            description: "Install Liunx TKG BMQ",
+            package_name: "vulkan-radeon vulkan-mesa-layers",
+            description: "Install vulkan-radeon",
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "steam steam-native-runtime",
