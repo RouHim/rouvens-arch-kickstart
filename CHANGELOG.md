@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.15.1...1.16.0) (2023-10-02)
+
+
+### Features
+
+* **packages:** add vulkan radeon ([c67eb04](https://github.com/RouHim/rouvens-arch-kickstart/commit/c67eb048c0393e6e5eb316bd8f62a6110866940c))
+
 ## [1.15.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.15.0...1.15.1) (2023-09-30)
 
 # [1.15.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.14.0...1.15.0) (2023-09-30)
