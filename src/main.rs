@@ -281,6 +281,10 @@ fn main() {
             package_name: "liquidctl",
             description: "Install Liquidctl",
         }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "corectrl",
+            description: "Install Corectrl",
+        }),
     ];
 
     ui::show(root_shell, features);
