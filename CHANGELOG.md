@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.16.0...1.17.0) (2023-10-03)
+
+
+### Features
+
+* **packages:** add corectl ([a46f296](https://github.com/RouHim/rouvens-arch-kickstart/commit/a46f296c86a0faa8abcefe2bf21e42e1c9c6237b))
+
 # [1.16.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.15.1...1.16.0) (2023-10-02)
 
 
