@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.17.0...1.18.0) (2023-10-04)
+
+
+### Features
+
+* **packages:** add dxvk async and gamemode ([10a1dfa](https://github.com/RouHim/rouvens-arch-kickstart/commit/10a1dfac34d713f773d47923c8a5e896e2c9cf42))
+
 # [1.17.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.16.0...1.17.0) (2023-10-03)
 
 
