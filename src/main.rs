@@ -250,6 +250,14 @@ fn main() {
             description: "Install vulkan-radeon",
         }),
         Box::new(pacman_package::PacmanPackage {
+            package_name: "dxvk-gplasync-bin",
+            description: "Install Async DXVK",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "gamemode",
+            description: "Install Feral GameMode",
+        }),
+        Box::new(pacman_package::PacmanPackage {
             package_name: "steam steam-native-runtime",
             description: "Install Steam",
         }),
