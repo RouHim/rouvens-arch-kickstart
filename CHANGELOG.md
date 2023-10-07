@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.18.0...1.19.0) (2023-10-07)
+
+
+### Features
+
+* **packages:** printer packages ([f21a0fd](https://github.com/RouHim/rouvens-arch-kickstart/commit/f21a0fd655dfd25d7f3681d6d959bb879201fef4))
+
 # [1.18.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.17.0...1.18.0) (2023-10-04)
 
 
