@@ -5,7 +5,6 @@ use dyn_clone::DynClone;
 use crate::chaotic_aur::ChaoticAur;
 use crate::shell::RootShell;
 
-mod bluetooth;
 mod chaotic_aur;
 mod common_system_fixes;
 mod docker;
@@ -30,6 +29,7 @@ mod hibernate_lid_closed;
 mod kitty;
 mod pacman;
 mod pacman_package;
+mod pacman_package_service;
 mod pacman_pamac;
 mod remove_eos_welcome;
 mod rust;
@@ -69,7 +69,11 @@ fn main() {
         Box::new(FeatureGroup {
             name: "System".to_string(),
         }),
-        Box::new(bluetooth::Bluetooth {}),
+        Box::new(pacman_package_service::PacmanPackageService {
+            package_name: "bluez bluez-utils",
+            service_name: "bluetooth.service",
+            description: "Install Bluetooth",
+        }),
         Box::new(docker::Docker {}),
         Box::new(pacman_package::PacmanPackage {
             package_name: "noto-fonts-emoji",
@@ -246,6 +250,14 @@ fn main() {
             name: "Gaming".to_string(),
         }),
         Box::new(pacman_package::PacmanPackage {
+            package_name: "steam steam-native-runtime",
+            description: "Install Steam",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "lutris gamemode lib32-gamemode innoextract gvfs lib32-vkd3d lib32-vulkan-icd-loader vkd3d vulkan-icd-loader vulkan-tools wine winetricks",
+            description: "Install Lutris",
+        }),
+        Box::new(pacman_package::PacmanPackage {
             package_name: "vulkan-radeon vulkan-mesa-layers",
             description: "Install vulkan-radeon",
         }),
@@ -256,14 +268,6 @@ fn main() {
         Box::new(pacman_package::PacmanPackage {
             package_name: "gamemode",
             description: "Install Feral GameMode",
-        }),
-        Box::new(pacman_package::PacmanPackage {
-            package_name: "steam steam-native-runtime",
-            description: "Install Steam",
-        }),
-        Box::new(pacman_package::PacmanPackage {
-            package_name: "lutris gamemode lib32-gamemode innoextract gvfs lib32-vkd3d lib32-vulkan-icd-loader vkd3d vulkan-icd-loader vulkan-tools wine winetricks",
-            description: "Install Lutris",
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "protonplus",
@@ -292,6 +296,27 @@ fn main() {
         Box::new(pacman_package::PacmanPackage {
             package_name: "corectrl",
             description: "Install Corectrl",
+        }),
+        // Printing
+        Box::new(FeatureGroup {
+            name: "Printing".to_string(),
+        }),
+        Box::new(pacman_package_service::PacmanPackageService {
+            package_name: "cups cups-pdf",
+            service_name: "cups.service",
+            description: "Install CUPS",
+        }),
+        Box::new(yay_package::YayPackage {
+            package_name: "brother-mfc-j430w",
+            description: "Install Brother MFC-J430W driver",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "brscan4",
+            description: "Install brscan4",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "system-config-printer",
+            description: "Install system-config-printer",
         }),
     ];
 
