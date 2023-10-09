@@ -36,11 +36,11 @@ mod pacman_pamac;
 mod remove_eos_welcome;
 mod rust;
 mod shell;
+mod splashscreen;
 mod terminator;
 mod ui;
 mod yay;
 mod yay_package;
-mod splashscreen;
 
 pub trait Feature: DynClone {
     fn install(&self, root_shell: &mut RootShell) -> bool;
@@ -104,6 +104,7 @@ fn main() {
         Box::new(common_system_fixes::CommonSystemFixes {}),
         Box::new(hibernate_lid_closed::HibernateWhenLidClosed {}),
         Box::new(remove_eos_welcome::RemoveEosWelcome {}),
+        Box::new(splashscreen::Splashscreen {}),
         // Shell
         Box::new(FeatureGroup {
             name: "Shell".to_string(),
@@ -173,10 +174,6 @@ fn main() {
         Box::new(pacman_package::PacmanPackage {
             package_name: "btop",
             description: "Install btop",
-        }),
-        Box::new(pacman_package::PacmanPackage {
-            package_name: "gparted",
-            description: "Install gparted",
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "timeshift",
