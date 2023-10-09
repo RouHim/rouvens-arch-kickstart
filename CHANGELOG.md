@@ -1,3 +1,12 @@
+# [1.20.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.19.0...1.20.0) (2023-10-09)
+
+
+### Features
+
+* **packages:** add plymouth(splashscreen) ([d85db57](https://github.com/RouHim/rouvens-arch-kickstart/commit/d85db57593f8298043bb164504a674216883c87c))
+* **packages:** add splash screen setup ([7b0712f](https://github.com/RouHim/rouvens-arch-kickstart/commit/7b0712f31c14dcd6fccfe50fd69705003e63ec5c))
+* **packages:** remove splash screen setup ([6cc47db](https://github.com/RouHim/rouvens-arch-kickstart/commit/6cc47db66960a6f64c341311dc74fcef225d6878))
+
 # [1.19.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.18.0...1.19.0) (2023-10-07)
 
 
