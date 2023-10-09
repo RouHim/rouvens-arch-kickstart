@@ -30,7 +30,9 @@ impl Feature for CommonSystemFixes {
         // Check if MOZ_ENABLE_WAYLAND=1 is set in /etc/environment
         let environment_file = PathBuf::from("/etc/environment");
         let environment_file_contents = fs::read_to_string(environment_file).unwrap();
-        environment_file_contents.contains("MOZ_ENABLE_WAYLAND=1")
+        let is_moz_wayland = environment_file_contents.contains("MOZ_ENABLE_WAYLAND=1");
+
+        is_moz_wayland
     }
 
     fn get_name(&self) -> String {

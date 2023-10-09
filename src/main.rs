@@ -10,6 +10,7 @@ mod common_system_fixes;
 mod docker;
 mod filesystem;
 mod fish_default_shell;
+mod fs_trim;
 mod gnome_app_indicator;
 mod gnome_blur_my_shell;
 mod gnome_dark_mode;
@@ -28,6 +29,7 @@ mod gnome_window_buttons;
 mod hibernate_lid_closed;
 mod kitty;
 mod pacman;
+mod pacman_config;
 mod pacman_package;
 mod pacman_package_service;
 mod pacman_pamac;
@@ -38,6 +40,7 @@ mod terminator;
 mod ui;
 mod yay;
 mod yay_package;
+mod splashscreen;
 
 pub trait Feature: DynClone {
     fn install(&self, root_shell: &mut RootShell) -> bool;
@@ -74,6 +77,8 @@ fn main() {
             service_name: "bluetooth.service",
             description: "Install Bluetooth",
         }),
+        Box::new(pacman_config::PacmanImprovements {}),
+        Box::new(fs_trim::PeriodicTRIM {}),
         Box::new(docker::Docker {}),
         Box::new(pacman_package::PacmanPackage {
             package_name: "noto-fonts-emoji",
@@ -88,8 +93,13 @@ fn main() {
             description: "Install AppImageLauncher",
         }),
         Box::new(pacman_package::PacmanPackage {
-            package_name: "tlp",
-            description: "Install TLP",
+            package_name: "cpupower-gui",
+            description: "Install cpupower-gui",
+        }),
+        Box::new(pacman_package_service::PacmanPackageService {
+            package_name: "power-profiles-daemon",
+            service_name: "power-profiles-daemon.service",
+            description: "Install power-profiles-daemon",
         }),
         Box::new(common_system_fixes::CommonSystemFixes {}),
         Box::new(hibernate_lid_closed::HibernateWhenLidClosed {}),
@@ -142,7 +152,11 @@ fn main() {
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "firefox",
-            description: "Install firefox",
+            description: "Install Firefox",
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "vlc",
+            description: "Install Vlc",
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "gnome-firmware",
@@ -248,6 +262,10 @@ fn main() {
         // Gaming
         Box::new(FeatureGroup {
             name: "Gaming".to_string(),
+        }),
+        Box::new(pacman_package::PacmanPackage {
+            package_name: "linux-zen linux-zen-headers",
+            description: "Install Linux Zen Kernel",
         }),
         Box::new(pacman_package::PacmanPackage {
             package_name: "steam steam-native-runtime",
