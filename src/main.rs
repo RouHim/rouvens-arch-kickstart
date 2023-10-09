@@ -166,6 +166,10 @@ fn main() {
             description: "Install topgrade",
         }),
         Box::new(pacman_package::PacmanPackage {
+            package_name: "menulibre",
+            description: "Install menulibre",
+        }),
+        Box::new(pacman_package::PacmanPackage {
             package_name: "htop",
             description: "Install htop",
         }),
