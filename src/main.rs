@@ -170,6 +170,10 @@ fn main() {
             description: "Install menulibre",
         }),
         Box::new(pacman_package::PacmanPackage {
+            package_name: "bottles",
+            description: "Install bottles",
+        }),
+        Box::new(pacman_package::PacmanPackage {
             package_name: "htop",
             description: "Install htop",
         }),
