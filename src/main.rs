@@ -36,7 +36,6 @@ mod pacman_pamac;
 mod remove_eos_welcome;
 mod rust;
 mod shell;
-mod splashscreen;
 mod terminator;
 mod ui;
 mod yay;
@@ -104,7 +103,6 @@ fn main() {
         Box::new(common_system_fixes::CommonSystemFixes {}),
         Box::new(hibernate_lid_closed::HibernateWhenLidClosed {}),
         Box::new(remove_eos_welcome::RemoveEosWelcome {}),
-        Box::new(splashscreen::Splashscreen {}),
         // Shell
         Box::new(FeatureGroup {
             name: "Shell".to_string(),
