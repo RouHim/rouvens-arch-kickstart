@@ -1,3 +1,11 @@
+# [1.21.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.20.0...1.21.0) (2023-10-09)
+
+
+### Features
+
+* **packages:** add bottles ([54cb367](https://github.com/RouHim/rouvens-arch-kickstart/commit/54cb367e8786ff3a8ebd7a7e042227c29401f5c3))
+* **packages:** add bottles ([0dd8e93](https://github.com/RouHim/rouvens-arch-kickstart/commit/0dd8e932a9d4ad343fd525ceb188fdaffb920b82))
+
 # [1.20.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.19.0...1.20.0) (2023-10-09)
 
 
