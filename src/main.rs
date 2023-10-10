@@ -131,10 +131,6 @@ fn main() {
         Box::new(gnome_just_perfection::GnomeShellExtensionJustPerfection {}),
         Box::new(gnome_tiling_assistant::GnomeShellExtensionTilingAssistant {}),
         Box::new(gnome_dracula_gtk_theme::GnomeDraculaGtkTheme {}),
-        Box::new(pacman_package::PacmanPackage {
-            package_name: "papirus-icon-theme",
-            description: "Install Papirus Icons",
-        }),
         Box::new(gnome_window_buttons::GnomeEnableWindowButtons {}),
         Box::new(gnome_over_amplification::GnomeOverAmplification {}),
         Box::new(pacman_package::PacmanPackage {
