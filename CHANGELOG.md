@@ -1,3 +1,11 @@
+# [1.22.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.21.0...1.22.0) (2023-10-10)
+
+
+### Features
+
+* **packages:** add dracula cursours theme ([8334104](https://github.com/RouHim/rouvens-arch-kickstart/commit/83341042b208572950e39e9a468b33364cc8d9ca))
+* **packages:** remove papirus icons ([5ef049c](https://github.com/RouHim/rouvens-arch-kickstart/commit/5ef049caf10357c0ae9592a137f2609b18fb3900))
+
 # [1.21.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.20.0...1.21.0) (2023-10-09)
 
 
