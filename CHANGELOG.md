@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.22.0...1.23.0) (2023-10-16)
+
+
+### Features
+
+* **packages:** add via ([f9613c5](https://github.com/RouHim/rouvens-arch-kickstart/commit/f9613c52b716e16d87c519f41e616114af901b9e))
+
 # [1.22.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.21.0...1.22.0) (2023-10-10)
 
 
