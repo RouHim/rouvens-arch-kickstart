@@ -158,6 +158,10 @@ fn main() {
             description: "Install gnome firmware updater",
         }),
         Box::new(pacman_package::PacmanPackage {
+            package_name: "via-bin",
+            description: "Install VIA for keyboards",
+        }),
+        Box::new(pacman_package::PacmanPackage {
             package_name: "topgrade",
             description: "Install topgrade",
         }),
