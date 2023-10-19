@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.23.0...1.24.0) (2023-10-19)
+
+
+### Features
+
+* **packages:** add goverlay ([2d0e66d](https://github.com/RouHim/rouvens-arch-kickstart/commit/2d0e66d0c78d5a957f6fc891e299cfea6ffa77e5))
+
 # [1.23.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.22.0...1.23.0) (2023-10-16)
 
 
