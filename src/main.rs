@@ -1,6 +1,8 @@
 use std::boxed::Box;
 
 use dyn_clone::DynClone;
+use pacman_package::PacmanPackage;
+use yay_package::YayPackage;
 
 use crate::chaotic_aur::ChaoticAur;
 use crate::shell::RootShell;
@@ -79,19 +81,19 @@ fn main() {
         Box::new(pacman_config::PacmanImprovements {}),
         Box::new(fs_trim::PeriodicTRIM {}),
         Box::new(docker::Docker {}),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "noto-fonts-emoji",
             description: "Install emoji support",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "ttf-fira-code",
             description: "Install fira code font",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "appimagelauncher",
             description: "Install AppImageLauncher",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "cpupower-gui",
             description: "Install cpupower-gui",
         }),
@@ -118,7 +120,7 @@ fn main() {
         Box::new(gnome_tap_to_click::GnomeTapToClick {}),
         Box::new(gnome_mouse_acceleration::GnomeDisableMouseAcceleration {}),
         Box::new(gnome_shortcuts::GnomeKeyboardShortcuts {}),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "gnome-browser-connector",
             description: "Install Gnome Browser connector",
         }),
@@ -133,11 +135,11 @@ fn main() {
         Box::new(gnome_dracula_gtk_theme::GnomeDraculaGtkTheme {}),
         Box::new(gnome_window_buttons::GnomeEnableWindowButtons {}),
         Box::new(gnome_over_amplification::GnomeOverAmplification {}),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "gnome-tweaks",
             description: "Install gnome tweaks",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "gnome-power-manager",
             description: "Install gnome power manager",
         }),
@@ -145,79 +147,79 @@ fn main() {
         Box::new(FeatureGroup {
             name: "Common Packages".to_string(),
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "firefox",
             description: "Install Firefox",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "vlc",
             description: "Install Vlc",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "gnome-firmware",
             description: "Install gnome firmware updater",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "via-bin",
             description: "Install VIA for keyboards",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "topgrade",
             description: "Install topgrade",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "menulibre",
             description: "Install menulibre",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "bottles",
             description: "Install bottles",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "htop",
             description: "Install htop",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "btop",
             description: "Install btop",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "timeshift",
             description: "Install timeshift",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "sublime-text-4",
             description: "Install Sublime",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "bitwarden",
             description: "Install Bitwarden",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "mc",
             description: "Install Midnight commander",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "solaar",
             description: "Install Solaar (Logitech)",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "micro",
             description: "Install Micro",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "thunderbird",
             description: "Install Thunderbird",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "signal-desktop",
             description: "Install signal desktop",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "usbimager",
             description: "Install USB Imager",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "deja-dup",
             description: "Install Déjà Dup",
         }),
@@ -226,27 +228,27 @@ fn main() {
             name: "Software Development".to_string(),
         }),
         Box::new(rust::Rust {}),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "vscodium",
             description: "Install VS Codium",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "python",
             description: "Install Python",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "jdk-openjdk",
             description: "Install OpenJDK",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "maven",
             description: "Install Maven",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "intellij-idea-ultimate-edition intellij-idea-ultimate-edition-jre",
             description: "Install intelliJ IDEA Ultimate",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "qemu-user-static",
             description: "Install QEMU static",
         }),
@@ -254,11 +256,11 @@ fn main() {
         Box::new(FeatureGroup {
             name: "Networking".to_string(),
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "wireguard-tools",
             description: "Install Wireguard",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "wireless_tools",
             description: "Install Wireless tools",
         }),
@@ -266,55 +268,59 @@ fn main() {
         Box::new(FeatureGroup {
             name: "Gaming".to_string(),
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "linux-zen linux-zen-headers",
             description: "Install Linux Zen Kernel",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "steam steam-native-runtime",
             description: "Install Steam",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "lutris gamemode lib32-gamemode innoextract gvfs lib32-vkd3d lib32-vulkan-icd-loader vkd3d vulkan-icd-loader vulkan-tools wine winetricks",
             description: "Install Lutris",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "vulkan-radeon vulkan-mesa-layers",
             description: "Install vulkan-radeon",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "dxvk-gplasync-bin",
             description: "Install Async DXVK",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "gamemode",
             description: "Install Feral GameMode",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "protonplus",
             description: "Install Proton Plus",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "mangohud",
             description: "Install MangoHud",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(YayPackage {
+            package_name: "goverlay-bin",
+            description: "Install Goverlay",
+        }),
+        Box::new(PacmanPackage {
             package_name: "piper",
             description: "Install Piper",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "openrgb",
             description: "Install OpenRGB",
         }),
-        Box::new(yay_package::YayPackage {
+        Box::new(YayPackage {
             package_name: "lug-helper",
             description: "Install Star Citizen LUG Helper",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "liquidctl",
             description: "Install Liquidctl",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "corectrl",
             description: "Install Corectrl",
         }),
@@ -327,15 +333,15 @@ fn main() {
             service_name: "cups.service",
             description: "Install CUPS",
         }),
-        Box::new(yay_package::YayPackage {
+        Box::new(YayPackage {
             package_name: "brother-mfc-j430w",
             description: "Install Brother MFC-J430W driver",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "brscan4",
             description: "Install brscan4",
         }),
-        Box::new(pacman_package::PacmanPackage {
+        Box::new(PacmanPackage {
             package_name: "system-config-printer",
             description: "Install system-config-printer",
         }),
