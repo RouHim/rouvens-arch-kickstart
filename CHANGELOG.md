@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.24.1...1.25.0) (2023-10-20)
+
+
+### Features
+
+* **packages:** improve micro setup ([53b3206](https://github.com/RouHim/rouvens-arch-kickstart/commit/53b3206ab7d27dea5ba9b255fe7b7382fb472a5a))
+
 ## [1.24.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.24.0...1.24.1) (2023-10-20)
 
 
