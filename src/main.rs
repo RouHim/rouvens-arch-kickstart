@@ -1,10 +1,12 @@
 use std::boxed::Box;
 
 use dyn_clone::DynClone;
+
 use pacman_package::PacmanPackage;
 use yay_package::YayPackage;
 
 use crate::chaotic_aur::ChaoticAur;
+use crate::micro::Micro;
 use crate::shell::RootShell;
 
 mod chaotic_aur;
@@ -30,6 +32,7 @@ mod gnome_user_themes;
 mod gnome_window_buttons;
 mod hibernate_lid_closed;
 mod kitty;
+mod micro;
 mod pacman;
 mod pacman_config;
 mod pacman_package;
@@ -203,10 +206,7 @@ fn main() {
             package_name: "solaar",
             description: "Install Solaar (Logitech)",
         }),
-        Box::new(PacmanPackage {
-            package_name: "micro",
-            description: "Install Micro",
-        }),
+        Box::new(Micro {}),
         Box::new(PacmanPackage {
             package_name: "thunderbird",
             description: "Install Thunderbird",
