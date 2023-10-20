@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.24.0...1.24.1) (2023-10-20)
+
+
+### Bug Fixes
+
+* **packages:** apply correct v40 gnome shell styles ([e88c3e0](https://github.com/RouHim/rouvens-arch-kickstart/commit/e88c3e0b2946e9920acd3af824999b4502e6f4f1))
+
 # [1.24.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.23.0...1.24.0) (2023-10-19)
 
 
