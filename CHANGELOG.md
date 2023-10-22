@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.25.0...1.26.0) (2023-10-22)
+
+
+### Features
+
+* **packages:** improve wireguard ([4bad913](https://github.com/RouHim/rouvens-arch-kickstart/commit/4bad913a0b2549f14202fb7777d56bd7baecb9c4))
+
 # [1.25.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.24.1...1.25.0) (2023-10-20)
 
 
