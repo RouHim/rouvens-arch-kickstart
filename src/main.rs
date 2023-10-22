@@ -3,6 +3,7 @@ use std::boxed::Box;
 use dyn_clone::DynClone;
 
 use pacman_package::PacmanPackage;
+use pacman_package_service::PacmanPackageService;
 use yay_package::YayPackage;
 
 use crate::chaotic_aur::ChaoticAur;
@@ -76,7 +77,7 @@ fn main() {
         Box::new(FeatureGroup {
             name: "System".to_string(),
         }),
-        Box::new(pacman_package_service::PacmanPackageService {
+        Box::new(PacmanPackageService {
             package_name: "bluez bluez-utils",
             service_name: "bluetooth.service",
             description: "Install Bluetooth",
@@ -100,7 +101,7 @@ fn main() {
             package_name: "cpupower-gui",
             description: "Install cpupower-gui",
         }),
-        Box::new(pacman_package_service::PacmanPackageService {
+        Box::new(PacmanPackageService {
             package_name: "power-profiles-daemon",
             service_name: "power-profiles-daemon.service",
             description: "Install power-profiles-daemon",
@@ -253,11 +254,9 @@ fn main() {
             description: "Install QEMU static",
         }),
         // Networking
-        Box::new(FeatureGroup {
-            name: "Networking".to_string(),
-        }),
-        Box::new(PacmanPackage {
-            package_name: "wireguard-tools",
+        Box::new(PacmanPackageService {
+            package_name: "wireguard-tools systemd-resolvconf",
+            service_name: "systemd-resolved.service",
             description: "Install Wireguard",
         }),
         Box::new(PacmanPackage {
@@ -328,7 +327,7 @@ fn main() {
         Box::new(FeatureGroup {
             name: "Printing".to_string(),
         }),
-        Box::new(pacman_package_service::PacmanPackageService {
+        Box::new(PacmanPackageService {
             package_name: "cups cups-pdf",
             service_name: "cups.service",
             description: "Install CUPS",
