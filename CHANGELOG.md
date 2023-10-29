@@ -1,3 +1,5 @@
+## [1.26.3](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.26.2...1.26.3) (2023-10-29)
+
 ## [1.26.2](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.26.1...1.26.2) (2023-10-27)
 
 ## [1.26.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.26.0...1.26.1) (2023-10-23)
