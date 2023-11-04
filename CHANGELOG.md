@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.26.4...1.27.0) (2023-11-04)
+
+
+### Features
+
+* **packages:** limit journald log size ([6e43988](https://github.com/RouHim/rouvens-arch-kickstart/commit/6e4398864d5bec1c53e8d3690b289b082fbc8ab0))
+
 ## [1.26.4](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.26.3...1.26.4) (2023-11-03)
 
 ## [1.26.3](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.26.2...1.26.3) (2023-10-29)
