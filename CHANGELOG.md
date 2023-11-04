@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.27.0...1.28.0) (2023-11-04)
+
+
+### Features
+
+* **packages:** cleanup old stuff and add gnome app timeout to 30s ([9a19b0f](https://github.com/RouHim/rouvens-arch-kickstart/commit/9a19b0fc6d562ead7eae1db4a15e6c461289da83))
+
 # [1.27.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.26.4...1.27.0) (2023-11-04)
 
 
