@@ -7,6 +7,7 @@ use pacman_package_service::PacmanPackageService;
 use yay_package::YayPackage;
 
 use crate::chaotic_aur::ChaoticAur;
+use crate::gnome_setting::GnomeSetting;
 use crate::micro::Micro;
 use crate::shell::RootShell;
 
@@ -18,19 +19,15 @@ mod fish_default_shell;
 mod fs_trim;
 mod gnome_app_indicator;
 mod gnome_blur_my_shell;
-mod gnome_dark_mode;
 mod gnome_dash_to_panel;
 mod gnome_date_menu_formatter;
 mod gnome_dracula_gtk_theme;
 mod gnome_just_perfection;
-mod gnome_mouse_acceleration;
-mod gnome_over_amplification;
+mod gnome_setting;
 mod gnome_shortcuts;
 mod gnome_system_monitor;
-mod gnome_tap_to_click;
 mod gnome_tiling_assistant;
 mod gnome_user_themes;
-mod gnome_window_buttons;
 mod hibernate_lid_closed;
 mod kitty;
 mod micro;
@@ -120,9 +117,48 @@ fn main() {
         Box::new(FeatureGroup {
             name: "Gnome".to_string(),
         }),
-        Box::new(gnome_dark_mode::GnomeDarkMode {}),
-        Box::new(gnome_tap_to_click::GnomeTapToClick {}),
-        Box::new(gnome_mouse_acceleration::GnomeDisableMouseAcceleration {}),
+        Box::new(GnomeSetting {
+            name: "org.gnome.desktop.interface color-scheme",
+            value: "'prefer-dark'",
+            default_value: "'prefer-light'",
+            description: "Enable Dark mode",
+        }),
+        Box::new(GnomeSetting {
+            name: "org.gnome.desktop.peripherals.touchpad tap-to-click",
+            value: "true",
+            default_value: "false",
+            description: "Enable Tap to Click",
+        }),
+        Box::new(GnomeSetting {
+            name: "org.gnome.desktop.peripherals.touchpad tap-to-click",
+            value: "true",
+            default_value: "false",
+            description: "Enable Tap to Click",
+        }),
+        Box::new(GnomeSetting {
+            name: "org.gnome.desktop.peripherals.mouse accel-profile",
+            value: "'flat'",
+            default_value: "'default'",
+            description: "Disable mouse acceleration",
+        }),
+        Box::new(GnomeSetting {
+            name: "org.gnome.mutter check-alive-timeout",
+            value: "30000",
+            default_value: "5000",
+            description: "Set app check alive timeout to 30s",
+        }),
+        Box::new(GnomeSetting {
+            name: "org.gnome.desktop.wm.preferences button-layout",
+            value: "'appmenu:minimize,maximize,close'",
+            default_value: "'appmenu:close'",
+            description: "Enable minimize, maximize and close buttons",
+        }),
+        Box::new(GnomeSetting {
+            name: "org.gnome.desktop.sound allow-volume-above-100-percent",
+            value: "true",
+            default_value: "false",
+            description: "Enable audio over amplification",
+        }),
         Box::new(gnome_shortcuts::GnomeKeyboardShortcuts {}),
         Box::new(PacmanPackage {
             package_name: "gnome-browser-connector",
@@ -137,8 +173,6 @@ fn main() {
         Box::new(gnome_just_perfection::GnomeShellExtensionJustPerfection {}),
         Box::new(gnome_tiling_assistant::GnomeShellExtensionTilingAssistant {}),
         Box::new(gnome_dracula_gtk_theme::GnomeDraculaGtkTheme {}),
-        Box::new(gnome_window_buttons::GnomeEnableWindowButtons {}),
-        Box::new(gnome_over_amplification::GnomeOverAmplification {}),
         Box::new(PacmanPackage {
             package_name: "gnome-tweaks",
             description: "Install gnome tweaks",
@@ -292,6 +326,14 @@ fn main() {
             description: "Install Feral GameMode",
         }),
         Box::new(PacmanPackage {
+            package_name: "gamescope",
+            description: "Install Gamescope",
+        }),
+        Box::new(PacmanPackage {
+            package_name: "vkbasalt",
+            description: "Install vkBasalt",
+        }),
+        Box::new(PacmanPackage {
             package_name: "protonplus",
             description: "Install Proton Plus",
         }),
@@ -330,7 +372,11 @@ fn main() {
         Box::new(PacmanPackageService {
             package_name: "cups cups-pdf",
             service_name: "cups.service",
-            description: "Install CUPS",
+            description: "Install CUPS service",
+        }),
+        Box::new(PacmanPackage {
+            package_name: "system-config-printer",
+            description: "Install Graphical user interface for CUPS",
         }),
         Box::new(YayPackage {
             package_name: "brother-mfc-j430w",
@@ -339,10 +385,6 @@ fn main() {
         Box::new(PacmanPackage {
             package_name: "brscan4",
             description: "Install brscan4",
-        }),
-        Box::new(PacmanPackage {
-            package_name: "system-config-printer",
-            description: "Install system-config-printer",
         }),
     ];
 

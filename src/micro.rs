@@ -14,7 +14,14 @@ impl Feature for Micro {
         pacman::install(PACKAGE_NAME, root_shell);
 
         // Set micro as default EDITOR in /etc/environment
-        root_shell.execute("echo 'EDITOR=micro' >> /etc/environment")
+        if !fs::read_to_string("/etc/environment")
+            .unwrap()
+            .contains("EDITOR=micro")
+        {
+            root_shell.execute("echo 'EDITOR=micro' >> /etc/environment");
+        };
+
+        true
     }
 
     fn uninstall(&self, root_shell: &mut RootShell) -> bool {

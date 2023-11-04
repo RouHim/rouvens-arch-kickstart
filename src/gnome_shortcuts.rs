@@ -36,6 +36,6 @@ impl Feature for GnomeKeyboardShortcuts {
     }
 
     fn get_name(&self) -> String {
-        String::from("Gnome keyboard shortcuts")
+        String::from("Set gnome keyboard shortcuts")
     }
 }
