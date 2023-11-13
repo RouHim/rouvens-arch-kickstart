@@ -306,6 +306,14 @@ fn main() {
             description: "Install Linux Zen Kernel",
         }),
         Box::new(PacmanPackage {
+            package_name: "corectrl",
+            description: "Install Corectrl",
+        }),
+        Box::new(PacmanPackage {
+            package_name: "tuxclocker",
+            description: "Install Tuxclocker",
+        }),
+        Box::new(PacmanPackage {
             package_name: "steam steam-native-runtime",
             description: "Install Steam",
         }),
@@ -360,10 +368,6 @@ fn main() {
         Box::new(PacmanPackage {
             package_name: "liquidctl",
             description: "Install Liquidctl",
-        }),
-        Box::new(PacmanPackage {
-            package_name: "corectrl",
-            description: "Install Corectrl",
         }),
         // Printing
         Box::new(FeatureGroup {
