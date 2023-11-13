@@ -1,3 +1,10 @@
+# [1.29.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.28.0...1.29.0) (2023-11-13)
+
+
+### Features
+
+* **packages:** add tuxclocker ([787d7a8](https://github.com/RouHim/rouvens-arch-kickstart/commit/787d7a87d7c39aba8e2c9c212dc9952a6cc88080))
+
 # [1.28.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.27.0...1.28.0) (2023-11-04)
 
 
