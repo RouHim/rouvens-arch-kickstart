@@ -38,10 +38,11 @@ impl Feature for GnomeDraculaGtkTheme {
 
         // Activate dracula theme everywhere
         root_shell.execute("gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'");
-        root_shell.execute("gsettings set org.gnome.desktop.interface icon-theme 'Dracula'");
-        root_shell.execute("gsettings set org.gnome.desktop.interface cursor-theme 'Dracula'");
         root_shell.execute("gsettings set org.gnome.desktop.wm.preferences theme 'Dracula'");
         root_shell.execute("gsettings set org.gnome.shell.extensions.user-theme name 'Dracula'");
+        root_shell.execute("gsettings set org.gnome.desktop.interface icon-theme 'Dracula'");
+        root_shell
+            .execute("gsettings set org.gnome.desktop.interface cursor-theme 'Dracula-cursors'");
 
         GnomeDraculaGtkTheme::is_installed(self)
     }
