@@ -1,3 +1,10 @@
+## [1.29.1](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.29.0...1.29.1) (2023-11-14)
+
+
+### Bug Fixes
+
+* **dracula:** fix broken setup ([5af2eee](https://github.com/RouHim/rouvens-arch-kickstart/commit/5af2eee067d4485d29fac9c9a66ab76e27602f08))
+
 # [1.29.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.28.0...1.29.0) (2023-11-13)
 
 
