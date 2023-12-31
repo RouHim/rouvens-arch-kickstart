@@ -28,7 +28,6 @@ mod gnome_shortcuts;
 mod gnome_system_monitor;
 mod gnome_tiling_assistant;
 mod gnome_user_themes;
-mod hibernate_lid_closed;
 mod kitty;
 mod micro;
 mod pacman;
@@ -104,7 +103,6 @@ fn main() {
             description: "Install power-profiles-daemon",
         }),
         Box::new(common_system_fixes::CommonSystemFixes {}),
-        Box::new(hibernate_lid_closed::HibernateWhenLidClosed {}),
         Box::new(remove_eos_welcome::RemoveEosWelcome {}),
         // Shell
         Box::new(FeatureGroup {
