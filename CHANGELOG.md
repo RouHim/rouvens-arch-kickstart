@@ -1,3 +1,11 @@
+# [1.30.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.29.4...1.30.0) (2023-12-31)
+
+
+### Features
+
+* **packages:** add new packages ([5d1a403](https://github.com/RouHim/rouvens-arch-kickstart/commit/5d1a403e85d4b3c441c08dac01748d89d318cde4))
+* **packages:** remove old packages ([c6605e8](https://github.com/RouHim/rouvens-arch-kickstart/commit/c6605e8a9e43a07f0a23c4aa4efd0253beab3348))
+
 ## [1.29.4](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.29.3...1.29.4) (2023-12-15)
 
 ## [1.29.3](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.29.2...1.29.3) (2023-11-24)
