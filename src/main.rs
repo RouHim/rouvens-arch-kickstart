@@ -207,11 +207,11 @@ fn main() {
         }),
         Box::new(PacmanPackage {
             package_name: "menulibre",
-            description: "Install menulibre",
+            description: "Install menulibre (Menu editor)",
         }),
         Box::new(PacmanPackage {
             package_name: "bottles",
-            description: "Install bottles",
+            description: "Install bottles (Wine Manager)",
         }),
         Box::new(PacmanPackage {
             package_name: "htop",
@@ -251,12 +251,28 @@ fn main() {
             description: "Install signal desktop",
         }),
         Box::new(PacmanPackage {
-            package_name: "usbimager",
-            description: "Install USB Imager",
+            package_name: "impression",
+            description: "Install Impression (USB Image writer)",
         }),
         Box::new(PacmanPackage {
             package_name: "deja-dup",
             description: "Install Déjà Dup",
+        }),
+        Box::new(PacmanPackage {
+            package_name: "apostrophe",
+            description: "Install apostrophe (Markdown editor)",
+        }),
+        Box::new(PacmanPackage {
+            package_name: "amberol",
+            description: "Install amberol (Music player)",
+        }),
+        Box::new(PacmanPackage {
+            package_name: "fragments",
+            description: "Install Fragments (BitTorrent client)",
+        }),
+        Box::new(PacmanPackage {
+            package_name: "shortwave",
+            description: "Install Shortwave (Internet radio player)",
         }),
         // Development
         Box::new(FeatureGroup {
@@ -287,6 +303,10 @@ fn main() {
             package_name: "qemu-user-static",
             description: "Install QEMU static",
         }),
+        Box::new(YayPackage {
+            package_name: "emblem",
+            description: "Install Emblem (Generate icons)",
+        }),
         // Networking
         Box::new(PacmanPackageService {
             package_name: "wireguard-tools systemd-resolvconf",
@@ -308,6 +328,10 @@ fn main() {
         Box::new(PacmanPackage {
             package_name: "corectrl",
             description: "Install Corectrl",
+        }),
+        Box::new(YayPackage {
+            package_name: "cartridges",
+            description: "Install cartridges (Game launcher)",
         }),
         Box::new(PacmanPackage {
             package_name: "tuxclocker",
