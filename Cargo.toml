@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 gtk4 = "0.7.3"
-ureq = "2.9.3"
+ureq = "2.9.4"
 scraper = "0.18.1"
 dyn-clone = "1.0.16"
 
