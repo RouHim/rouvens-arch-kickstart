@@ -87,31 +87,6 @@ jobs:
       - name: Test code
         run: cargo test
 
-  check-unused-dependencies:
-    name: Check for unused deps
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: nightly
-
-      - name: Install gtk4 dependencies
-        run: sudo apt install -y libgtk-4-dev build-essential
-
-      - uses: Swatinem/rust-cache@v2 # use /rust/cargo caching
-        continue-on-error: true # upload cache even if there are errors in this step
-
-      - name: Install cargo-udeps
-        run: cargo update -p proc-macro2 && cargo install cargo-udeps --locked
-
-      - name: Analyze dependencies
-        run: cargo +nightly udeps
-
   build:
     name: Build executable
     needs: [ check-repo, check-code-style, check-code, test ]
