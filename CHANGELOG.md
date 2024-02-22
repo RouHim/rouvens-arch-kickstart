@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.30.0...1.31.0) (2024-02-22)
+
+
+### Features
+
+* remove unused dependency check, because it is broken ([cffa02c](https://github.com/RouHim/rouvens-arch-kickstart/commit/cffa02c89d142f3382c65f893da0ed4e080dabc3))
+
 # [1.30.0](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.29.4...1.30.0) (2023-12-31)
 
 
