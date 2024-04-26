@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-gtk4 = "0.8.0"
+gtk4 = "0.8.2"
 ureq = "2.9.7"
 scraper = "0.19.0"
 dyn-clone = "1.0.17"
