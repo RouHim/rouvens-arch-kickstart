@@ -1,3 +1,5 @@
+## [1.31.17](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.31.16...1.31.17) (2024-12-10)
+
 ## [1.31.16](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.31.15...1.31.16) (2024-12-04)
 
 ## [1.31.15](https://github.com/RouHim/rouvens-arch-kickstart/compare/1.31.14...1.31.15) (2024-12-03)
