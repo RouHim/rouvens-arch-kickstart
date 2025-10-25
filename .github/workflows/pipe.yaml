@@ -112,7 +112,7 @@ jobs:
           cp target/x86_64-unknown-linux-gnu/release/rouvens-arch-kickstart ./rak-x86-64
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: artifact-linux-x86_64
           path: rak-x86-64
